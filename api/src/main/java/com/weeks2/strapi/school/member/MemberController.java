@@ -37,15 +37,21 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Member.Attributes body) {
         log.info("{}",body);
+        // Id auto-incremental
+        // TODO: Poner esto en un método.
         if(body.getId() == null){
             int i = 1;
             List<Member.Attributes> memberExist = memberService.fetch(headers);
-            while(i <= memberExist.size()){
-                if(i == memberExist.size()){
-                    body.setId(i+1);
-                    break;
+            if(!memberExist.isEmpty()){
+                while(i <= memberExist.size()){
+                    if(i == memberExist.size()){
+                        body.setId(i+1);
+                        break;
+                    }
+                    i++;
                 }
-                i++;
+            } else {
+                body.setId(1);
             }
         }
         if(body.getRol() == null && body.getAccount() != null){

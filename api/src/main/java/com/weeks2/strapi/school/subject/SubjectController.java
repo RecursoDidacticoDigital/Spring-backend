@@ -36,6 +36,24 @@ public class SubjectController {
 
     @PostMapping
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Subject.Attributes body) {
+        log.info("{}",body);
+        // Id auto-incremental
+        // TODO: Poner esto en un método.
+        if(body.getId() == null){
+            int i = 1;
+            List<Subject.Attributes> subjectExist = subjectService.fetch(headers);
+            if(!subjectExist.isEmpty()){
+                while(i <= subjectExist.size()){
+                    if(i == subjectExist.size()){
+                        body.setId(i+1);
+                        break;
+                    }
+                    i++;
+                }
+            } else {
+                body.setId(1);
+            }
+        }
         subjectService.create(headers,body);
         return ResponseEntity.ok("SUCCESSFUL");
     }
