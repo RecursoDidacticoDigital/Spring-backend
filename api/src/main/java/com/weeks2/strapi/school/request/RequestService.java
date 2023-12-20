@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class RequestService {
-    @Value("${api.request}")
+    @Value("${strapi.request}")
     private String url;
     @Autowired
     private ClientRest rest;

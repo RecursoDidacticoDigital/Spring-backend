@@ -1,8 +1,15 @@
 server:
   port: 8081
-api:
+strapi:
   filter: ?filters[tenantId][%24eq]=137
-  host: https://api-core-q9s1.onrender.com
-  lesson: ${api.host}/api/lessons
-  teacher: ${api.host}/api/teachers
-  auth: ${api.host}/api/auth/local
+  host: https://api-core-q9s1.onrender.com/api
+  auth: ${strapi.host}/auth/local
+  lesson: ${strapi.host}/lessons
+  teacher: ${strapi.host}/teachers
+  member: ${strapi.host}/members
+  group: ${strapi.host}/groups
+  day: ${strapi.host}/days
+  timeblock: ${strapi.host}/timeblocks
+  subject: ${strapi.host}/subjects
+  classroom: ${strapi.host}/classrooms
+  request: ${strapi.host}/requests

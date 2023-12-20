@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class GroupService {
-    @Value("${api.group}")
+    @Value("${strapi.group}")
     private String url;
     @Autowired
     private ClientRest rest;

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class DayService {
-    @Value("${api.day}")
+    @Value("${strapi.day}")
     private String url;
     @Autowired
     private ClientRest rest;

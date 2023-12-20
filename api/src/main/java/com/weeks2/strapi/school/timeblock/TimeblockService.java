@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class TimeblockService {
-    @Value("${api.timeblock}")
+    @Value("${strapi.timeblock}")
     private String url;
     @Autowired
     private ClientRest rest;

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class SubjectService {
-    @Value("${api.subject}")
+    @Value("${strapi.subject}")
     private String url;
     @Autowired
     private ClientRest rest;
