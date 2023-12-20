@@ -16,23 +16,23 @@ public class Subject {
     public static class Attributes{
         @JsonInclude(JsonInclude.Include.NON_NULL)
         Integer id;
-        @JsonInclude(JsonInclude.Include.NON_NULL)
         private String group;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String name;
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String classroom;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String laboratory;
         private String teacher;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer Day_id1;
+        private Integer day_id1;
+        private Integer day_id2;
+        private Integer day_id3;
+        private Integer day_id4;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer Day_id2;
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer Day_id3;
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer Timeblock_id1;
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer Timeblock_id2;
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer Timeblock_id3;
+        private Integer timeblock_id1;
+        private Integer timeblock_id2;
+        private Integer timeblock_id3;
+        private Integer timeblock_id4;
     }
 }
