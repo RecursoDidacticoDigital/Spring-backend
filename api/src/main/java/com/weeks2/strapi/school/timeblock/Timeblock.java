@@ -18,10 +18,8 @@ public class Timeblock {
     public static class Attributes{
         @JsonInclude(JsonInclude.Include.NON_NULL)
         Integer id;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StrapiConstants.pattern)
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String start;
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StrapiConstants.pattern)
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String end;
     }
