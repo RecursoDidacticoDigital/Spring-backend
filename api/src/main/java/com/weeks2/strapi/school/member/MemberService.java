@@ -45,4 +45,16 @@ public class MemberService {
                 .filter(l-> l.getId() == id)
                 .collect(Collectors.toList());
     }
+
+    public List<Member.Attributes> findByEmail(HttpHeaders authHeader, String email){
+        return fetch(authHeader).stream()
+                .filter(l-> l.getEmail().equals(email))
+                .collect(Collectors.toList());
+    }
+
+    public List<Member.Attributes> findByAccount(HttpHeaders authHeader, String account){
+        return fetch(authHeader).stream()
+                .filter(l-> l.getAccount().equals(account))
+                .collect(Collectors.toList());
+    }
 }

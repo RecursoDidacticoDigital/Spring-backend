@@ -37,6 +37,17 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Member.Attributes body) {
         log.info("{}",body);
+        if(body.getId() == null){
+            int i = 1;
+            List<Member.Attributes> memberExist = memberService.fetch(headers);
+            while(i <= memberExist.size()){
+                if(i == memberExist.size()){
+                    body.setId(i+1);
+                    break;
+                }
+                i++;
+            }
+        }
         if(body.getRol() == null && body.getAccount() != null){
             if(body.getAccount().length() == 10){
                 body.setRol("STUDENT");

@@ -20,9 +20,9 @@ public class Timeblock {
         Integer id;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StrapiConstants.pattern)
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Time start;
+        private String start;
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StrapiConstants.pattern)
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Time end;
+        private String end;
     }
 }
