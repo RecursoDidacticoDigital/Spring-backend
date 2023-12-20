@@ -36,25 +36,20 @@ public class MemberController {
 
     @PostMapping
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Member.Attributes body) {
-        if(body.getRol() == null){
-            try{
-                if(body.getAccount().length() == 10){
-                    body.setRol("estudiante");
-                }
-                if(body.getAccount().length() == 6){
-                    body.setRol("profesor");
-                }
-            } catch(Exception e) {
-                System.out.println(e);
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Request");
+        log.info("{}",body);
+        if(body.getRol() == null && body.getAccount() != null){
+            if(body.getAccount().length() == 10){
+                body.setRol("STUDENT");
+            }
+            if(body.getAccount().length() == 6){
+                body.setRol("TEACHER");
             }
         }
-        try{
-            memberService.create(headers,body);
-            return ResponseEntity.ok("SUCCESSFUL");
-        } catch (Exception e){
-            System.out.println(e);
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad Request");
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Account is necessary");
         }
+        log.info("{}",body);
+        memberService.create(headers,body);
+        return ResponseEntity.ok("SUCCESSFUL");
     }
 }

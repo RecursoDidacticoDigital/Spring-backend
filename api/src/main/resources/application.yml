@@ -4,6 +4,7 @@ strapi:
   filter: ?filters[tenantId][%24eq]=137
   host: https://api-core-q9s1.onrender.com/api
   auth: ${strapi.host}/auth/local
+  memberauth: ${strapi.host}/memberauth/local
   lesson: ${strapi.host}/lessons
   teacher: ${strapi.host}/teachers
   member: ${strapi.host}/members
