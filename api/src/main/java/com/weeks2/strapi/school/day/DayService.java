@@ -1,8 +1,6 @@
 package com.weeks2.strapi.school.day;
 
-import com.weeks2.strapi.common.ClientRest;
-import com.weeks2.strapi.lesson.Lesson;
-import com.weeks2.strapi.lesson.LessonPayload;
+import com.weeks2.strapi.api.common.ClientRest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

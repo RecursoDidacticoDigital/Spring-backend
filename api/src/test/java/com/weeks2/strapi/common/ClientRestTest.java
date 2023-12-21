@@ -1,12 +1,13 @@
 package com.weeks2.strapi.common;
 
-import com.weeks2.strapi.lesson.Lesson;
-import com.weeks2.strapi.lesson.LessonData;
-import com.weeks2.strapi.lesson.LessonList;
-import com.weeks2.strapi.lesson.LessonPayload;
-import com.weeks2.strapi.local.AuthRequest;
-import com.weeks2.strapi.local.AuthResponse;
-import com.weeks2.strapi.service.StrapiAuthService;
+import com.weeks2.strapi.api.common.ClientRest;
+import com.weeks2.strapi.api.lesson.Lesson;
+import com.weeks2.strapi.api.lesson.LessonData;
+import com.weeks2.strapi.api.lesson.LessonList;
+import com.weeks2.strapi.api.lesson.LessonPayload;
+import com.weeks2.strapi.api.local.AuthRequest;
+import com.weeks2.strapi.api.local.AuthResponse;
+import com.weeks2.strapi.api.service.StrapiAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,8 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-
-import java.awt.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

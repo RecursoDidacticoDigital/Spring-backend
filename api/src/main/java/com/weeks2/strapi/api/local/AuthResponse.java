@@ -1,4 +1,4 @@
-package com.weeks2.strapi.local;
+package com.weeks2.strapi.api.local;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,6 +1,6 @@
 package com.weeks2.strapi.school.member.auth;
 
-import com.weeks2.strapi.common.AppEndPointsSchool;
+import com.weeks2.strapi.api.common.AppEndPointsSchool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

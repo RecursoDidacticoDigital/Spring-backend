@@ -1,4 +1,4 @@
-package com.weeks2.strapi.common;
+package com.weeks2.strapi.api.common;
 
 import com.weeks2.strapi.school.day.Day;
 import org.springframework.beans.factory.annotation.Autowired;

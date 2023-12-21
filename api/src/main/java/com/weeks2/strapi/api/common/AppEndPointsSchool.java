@@ -1,4 +1,4 @@
-package com.weeks2.strapi.common;
+package com.weeks2.strapi.api.common;
 
 public class AppEndPointsSchool {
     public static final String SPRING_BASE_PATH_ = "/api";

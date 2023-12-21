@@ -1,9 +1,9 @@
-package com.weeks2.strapi.lesson;
+package com.weeks2.strapi.api.lesson;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.weeks2.strapi.config.StrapiConstants;
+import com.weeks2.strapi.api.config.StrapiConstants;
 import lombok.Data;
 
 import java.util.Date;

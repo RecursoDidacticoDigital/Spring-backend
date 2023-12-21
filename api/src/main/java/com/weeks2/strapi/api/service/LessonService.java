@@ -1,10 +1,10 @@
-package com.weeks2.strapi.service;
+package com.weeks2.strapi.api.service;
 
-import com.weeks2.strapi.common.ClientRest;
-import com.weeks2.strapi.lesson.Lesson;
-import com.weeks2.strapi.lesson.LessonData;
-import com.weeks2.strapi.lesson.LessonList;
-import com.weeks2.strapi.lesson.LessonPayload;
+import com.weeks2.strapi.api.common.ClientRest;
+import com.weeks2.strapi.api.lesson.Lesson;
+import com.weeks2.strapi.api.lesson.LessonData;
+import com.weeks2.strapi.api.lesson.LessonList;
+import com.weeks2.strapi.api.lesson.LessonPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

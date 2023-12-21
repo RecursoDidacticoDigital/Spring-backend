@@ -1,4 +1,4 @@
-package com.weeks2.strapi.config;
+package com.weeks2.strapi.api.config;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

@@ -1,4 +1,4 @@
-package com.weeks2.strapi.lesson;
+package com.weeks2.strapi.api.lesson;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

@@ -1,5 +1,5 @@
 package com.weeks2.strapi.school.teacher;
-import com.weeks2.strapi.common.AppEndPointsSchool;
+import com.weeks2.strapi.api.common.AppEndPointsSchool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;

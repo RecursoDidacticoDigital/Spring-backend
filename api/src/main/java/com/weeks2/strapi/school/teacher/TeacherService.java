@@ -1,10 +1,6 @@
 package com.weeks2.strapi.school.teacher;
 
-import com.weeks2.strapi.common.ClientRest;
-import com.weeks2.strapi.school.teacher.Teacher;
-import com.weeks2.strapi.school.teacher.TeacherData;
-import com.weeks2.strapi.school.teacher.TeacherList;
-import com.weeks2.strapi.school.teacher.TeacherPayload;
+import com.weeks2.strapi.api.common.ClientRest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

@@ -1,7 +1,7 @@
-package com.weeks2.strapi.controller;
-import com.weeks2.strapi.common.AppEndPointsSchool;
-import com.weeks2.strapi.lesson.Lesson;
-import com.weeks2.strapi.service.LessonService;
+package com.weeks2.strapi.api.controller;
+import com.weeks2.strapi.api.lesson.Lesson;
+import com.weeks2.strapi.api.common.AppEndPointsSchool;
+import com.weeks2.strapi.api.service.LessonService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;

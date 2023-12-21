@@ -1,7 +1,7 @@
-package com.weeks2.strapi.service;
+package com.weeks2.strapi.api.service;
 
-import com.weeks2.strapi.local.AuthRequest;
-import com.weeks2.strapi.local.AuthResponse;
+import com.weeks2.strapi.api.local.AuthRequest;
+import com.weeks2.strapi.api.local.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
