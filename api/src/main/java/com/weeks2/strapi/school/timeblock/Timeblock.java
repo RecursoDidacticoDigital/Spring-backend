@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.weeks2.strapi.api.config.StrapiConstants;
 import lombok.Data;
 
+import java.sql.Time;
 import java.util.Date;
 
 @Data
@@ -26,9 +27,9 @@ public class Timeblock {
         private Date end;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StrapiConstants.pattern_time)
-        private Date startTime;
+        private Time startTime;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StrapiConstants.pattern_time)
-        private Date endTime;
+        private Time endTime;
     }
 }

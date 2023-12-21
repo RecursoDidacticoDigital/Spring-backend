@@ -27,6 +27,12 @@ public class TimeblockController {
         return timeblockService.findById(headers,id);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @RequestBody Timeblock.Attributes body){
+        timeblockService.put(headers, body);
+        return ResponseEntity.ok("SUCCESS"+body);
+    }
+
     @PostMapping
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Timeblock.Attributes body) {
         log.info("{}",body);

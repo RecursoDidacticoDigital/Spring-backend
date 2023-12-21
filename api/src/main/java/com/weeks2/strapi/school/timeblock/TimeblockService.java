@@ -40,6 +40,13 @@ public class TimeblockService {
         log.info("response {}",response);
     }
 
+    public void put(HttpHeaders headers, Timeblock.Attributes data){
+        var payload = new TimeblockPayload();
+        payload.setData(data);
+        var timeblock = rest.httpPutRequest(url+"/4", headers, payload, TimeblockData.class).getData();
+        log.info("{}",timeblock);
+    }
+
     public List<Timeblock.Attributes> findById(HttpHeaders authHeader,int id) {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
