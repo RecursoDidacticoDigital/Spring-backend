@@ -29,7 +29,7 @@ public class ClientRestTest {
 
     @Autowired
     StrapiAuthService strapiAuthService;
-    @Value("${api.lesson}")
+    @Value("${strapi.lesson}")
     private String url;
 
     private ResponseEntity<AuthResponse> token;
