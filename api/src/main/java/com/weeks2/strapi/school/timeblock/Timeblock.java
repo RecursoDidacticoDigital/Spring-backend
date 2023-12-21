@@ -24,9 +24,9 @@ public class Timeblock {
         private Date end;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StrapiConstants.pattern_time)
-        private Date start_time;
+        private Date startTime;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = StrapiConstants.pattern_time)
-        private Date end_time;
+        private Date endTime;
     }
 }
