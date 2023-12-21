@@ -43,7 +43,7 @@ public class TimeBlocksTest {
     }
     @Test
     void testPatch(){
-        var timeblock = clientRest.httpPathRequest(url,createHeaders(), createPayload(), TimeblockData.class).getData();
+        var timeblock = clientRest.httpPathRequest(url+"/4",createHeaders(), createPayload(), TimeblockData.class).getData();
         log.info("{}",timeblock);
         assertTrue(1185 < timeblock.getId());
     }
@@ -51,6 +51,7 @@ public class TimeBlocksTest {
     private static TimeblockPayload createPayload() {
         var payload = new TimeblockPayload();
         var data = new Timeblock.Attributes();
+        data.setEndTime(Time.valueOf("23:00:00"));
         data.setStartTime(Time.valueOf("23:00:00"));
         payload.setData(data);
         return payload;
