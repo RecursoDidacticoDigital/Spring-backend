@@ -30,7 +30,7 @@ public class TimeBlocksTest {
 
     @Autowired
     AuthService strapiAuthService;
-    @Value("${strapi.lesson}")
+    @Value("${strapi.timeblock}")
     private String url;
 
     private ResponseEntity<AuthResponse> token;
