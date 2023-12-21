@@ -1,8 +1,5 @@
-package com.weeks2.strapi.api.controller;
+package com.weeks2.strapi.api.local;
 
-import com.weeks2.strapi.api.local.AuthRequest;
-import com.weeks2.strapi.api.local.AuthResponse;
-import com.weeks2.strapi.api.service.StrapiAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

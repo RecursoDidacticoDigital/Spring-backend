@@ -7,7 +7,7 @@ import com.weeks2.strapi.api.lesson.LessonList;
 import com.weeks2.strapi.api.lesson.LessonPayload;
 import com.weeks2.strapi.api.local.AuthRequest;
 import com.weeks2.strapi.api.local.AuthResponse;
-import com.weeks2.strapi.api.service.StrapiAuthService;
+import com.weeks2.strapi.api.local.StrapiAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

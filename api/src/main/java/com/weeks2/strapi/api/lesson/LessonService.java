@@ -1,4 +1,4 @@
-package com.weeks2.strapi.api.service;
+package com.weeks2.strapi.api.lesson;
 
 import com.weeks2.strapi.api.common.ClientRest;
 import com.weeks2.strapi.api.lesson.Lesson;

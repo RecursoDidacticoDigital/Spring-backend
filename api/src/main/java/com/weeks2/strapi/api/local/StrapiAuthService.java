@@ -1,4 +1,4 @@
-package com.weeks2.strapi.api.service;
+package com.weeks2.strapi.api.local;
 
 import com.weeks2.strapi.api.local.AuthRequest;
 import com.weeks2.strapi.api.local.AuthResponse;
