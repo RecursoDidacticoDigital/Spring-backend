@@ -43,7 +43,7 @@ class DataConverter {
 
     @Test
     void testResponse()  {
-        var data = clientRest.httpGetRequest(url,createHeaders(), ClientRest.DataList.class)
+        var data = clientRest.httpGetRequest(uriFilter(),createHeaders(), ClientRest.DataList.class)
                 .getData()
                 .stream()
                 .map(jsonNode -> toLesson(jsonNode))
@@ -54,12 +54,12 @@ class DataConverter {
     }
 
     private String uriFilter(){
-        return Filters.addFilter(url,"id",Filters.EQ,"4");
+        return Filters.addFilter(url,"id",Filters.EQ,"1194");
     }
 
     @Test
     void testURIFilter() {
-        log.info(uriFilter());
+        log.info("{}",uriFilter());
     }
 
     private Lesson toLesson(JsonNode item) {

@@ -20,8 +20,7 @@ public class ClientRest {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
-    private ObjectMapper mapper;
+    @Autowired private ObjectMapper mapper;
 
     public <T> T httpGetRequest(String url, HttpHeaders authHeader, Class<T> responseType) {
         return restTemplate.exchange(url, HttpMethod.GET,
