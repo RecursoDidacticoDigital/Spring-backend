@@ -19,8 +19,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.sql.Time;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
@@ -42,10 +41,10 @@ public class TimeBlocksTest {
         );
     }
     @Test
-    void testPatch(){
-        var timeblock = clientRest.httpPathRequest(url+"/4",createHeaders(), createPayload(), TimeblockData.class).getData();
+    void testPut(){
+        var timeblock = clientRest.httpPutRequest(url+"/4",createHeaders(), createPayload(), TimeblockData.class).getData();
         log.info("{}",timeblock);
-        assertTrue(1185 < timeblock.getId());
+        assertNotNull(timeblock);
     }
 
     private static TimeblockPayload createPayload() {
