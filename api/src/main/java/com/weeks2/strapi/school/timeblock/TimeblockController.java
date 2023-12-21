@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping(AppEndPointsSchool.TIMEBLOCK_PATH_)
 public class TimeblockController {
-    @Autowired
-    private TimeblockService timeblockService;
+    private final TimeblockService timeblockService;
+
+    public TimeblockController(TimeblockService timeblockService) {
+        this.timeblockService = timeblockService;
+    }
+
     @GetMapping
     public List<Timeblock.Attributes> get(@RequestHeader HttpHeaders headers) {
         return timeblockService.fetch(headers);
