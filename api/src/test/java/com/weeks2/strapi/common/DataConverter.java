@@ -54,7 +54,7 @@ class DataConverter {
     }
 
     private String uriFilter(){
-        return Filters.addFilter(url,"id",Filters.EQ,"1194");
+        return Filters.addFilter(url,"id",Filters.EQ,"1195");
     }
 
     @Test
@@ -62,10 +62,13 @@ class DataConverter {
         log.info("{}",uriFilter());
     }
 
-    private Lesson toLesson(JsonNode item) {
+    private Lesson toLesson(JsonNode jsonNode) {
         try {
-            var lesson = clientRest.mapNode(item, Lesson.class);
-            lesson.setId(item.get("id").asInt());
+            log.info("{}",jsonNode);
+            var attributes = clientRest.mapNode(jsonNode, Lesson.Attributes.class);
+            var lesson = new Lesson();
+            lesson.setId(jsonNode.get("id").asInt());
+            lesson.setAttributes(attributes);
             return lesson;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
