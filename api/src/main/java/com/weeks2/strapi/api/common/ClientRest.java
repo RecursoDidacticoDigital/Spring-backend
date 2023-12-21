@@ -31,7 +31,18 @@ public class ClientRest {
         return headers;
     }
 
+    /**
+     * update complete payload
+     */
+
     public <P, R> R  httpPutRequest(String url, HttpHeaders authHeader, P payload, Class<R> response) {
         return restTemplate.exchange(url, HttpMethod.PUT, new HttpEntity<>(payload,buildHeaders(authHeader)), response).getBody();
+    }
+
+    /**
+     * Update partial payload
+     */
+    public <P, R> R  httpPathRequest(String url, HttpHeaders authHeader, P payload, Class<R> response) {
+        return restTemplate.exchange(url, HttpMethod.PATCH, new HttpEntity<>(payload,buildHeaders(authHeader)), response).getBody();
     }
 }
