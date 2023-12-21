@@ -24,14 +24,15 @@ public class DayController {
         return dayService.findById(headers,id);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public List<Day.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return dayService.findById(headers,id);
     }
 
-    @PutMapping("/{id}/put")
-    public List<Day.Attributes> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id){
-        return dayService.findById(headers, id);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Day.Attributes body){
+        dayService.put(headers, id, body);
+        return ResponseEntity.ok("SUCCESS");
     }
 
     @PostMapping

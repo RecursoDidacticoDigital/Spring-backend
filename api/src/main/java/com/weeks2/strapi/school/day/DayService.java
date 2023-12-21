@@ -1,6 +1,8 @@
 package com.weeks2.strapi.school.day;
 
 import com.weeks2.strapi.common.ClientRest;
+import com.weeks2.strapi.lesson.Lesson;
+import com.weeks2.strapi.lesson.LessonPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,11 +33,9 @@ public class DayService {
         return l;
     }
 
-    public void create(HttpHeaders headers,Day.Attributes data) {
+    public void create(HttpHeaders headers,Day.Attributes body) {
         log.info("Data: ");
-        var payload = new DayPayload();
-        payload.setData(data);
-
+        var payload = getDayPayload(body);
         var response = rest.httpPostRequest(url, headers,payload, DayData.class);
         log.info("response {}",response);
     }
@@ -44,5 +44,16 @@ public class DayService {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
                 .collect(Collectors.toList());
+    }
+
+    public void put(HttpHeaders headers, int id, Day.Attributes body) {
+        var payload = getDayPayload(body);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, DayData.class);
+    }
+
+    private static DayPayload getDayPayload(Day.Attributes data) {
+        var payload = new DayPayload();
+        payload.setData(data);
+        return payload;
     }
 }
