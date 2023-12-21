@@ -3,6 +3,7 @@ package com.weeks2.strapi.common;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.weeks2.strapi.api.common.ClientRest;
+import com.weeks2.strapi.api.common.Filters;
 import com.weeks2.strapi.api.lesson.Lesson;
 import com.weeks2.strapi.api.local.AuthRequest;
 import com.weeks2.strapi.api.local.AuthResponse;
@@ -27,7 +28,7 @@ class DataConverter {
     @Autowired
     AuthService strapiAuthService;
 
-    @Value("${api.lesson}")
+    @Value("${strapi.lesson}")
     private String url;
 
 
@@ -50,6 +51,15 @@ class DataConverter {
 
         log.info("{}",data);
 
+    }
+
+    private String uriFilter(){
+        return Filters.addFilter(url,"id",Filters.EQ,"4");
+    }
+
+    @Test
+    void testURIFilter() {
+        log.info(uriFilter());
     }
 
     private Lesson toLesson(JsonNode item) {

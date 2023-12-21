@@ -60,7 +60,7 @@ public enum Filters {
     /**
      * GET /api/:pluralApiId?filters[field][operator]=value
      */
-    public String addFilter(String uri, String field,Filters operator,String value) {
+    public static String addFilter(String uri, String field,Filters operator,String value) {
         return new StringBuilder(uri).append(uri.contains("?") ? '&' : '?')
                 .append("filters[").append(field).append("][")
                 .append(operator.getValue())
