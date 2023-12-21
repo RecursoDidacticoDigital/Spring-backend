@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class AuthResponse {
         private String jwt;
         @JsonProperty("user")
-        private UserStrapi user;
+        private AuthUser user;
 
     public String getJwt() {
         return jwt;
@@ -15,11 +15,11 @@ public class AuthResponse {
         this.jwt = jwt;
     }
 
-    public UserStrapi getUser() {
+    public AuthUser getUser() {
         return user;
     }
 
-    public void setUser(UserStrapi user) {
+    public void setUser(AuthUser user) {
         this.user = user;
     }
 }

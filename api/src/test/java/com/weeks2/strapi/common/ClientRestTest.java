@@ -7,7 +7,7 @@ import com.weeks2.strapi.api.lesson.LessonList;
 import com.weeks2.strapi.api.lesson.LessonPayload;
 import com.weeks2.strapi.api.local.AuthRequest;
 import com.weeks2.strapi.api.local.AuthResponse;
-import com.weeks2.strapi.api.local.StrapiAuthService;
+import com.weeks2.strapi.api.local.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class ClientRestTest {
     ClientRest clientRest;
 
     @Autowired
-    StrapiAuthService strapiAuthService;
+    AuthService strapiAuthService;
     @Value("${strapi.lesson}")
     private String url;
 

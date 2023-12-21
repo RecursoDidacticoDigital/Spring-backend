@@ -1,7 +1,5 @@
 package com.weeks2.strapi.api.local;
 
-import com.weeks2.strapi.api.local.AuthRequest;
-import com.weeks2.strapi.api.local.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -12,7 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class StrapiAuthService {
+public class AuthService {
     @Autowired
     private RestTemplate restTemplate;
     @Value("${strapi.auth}")

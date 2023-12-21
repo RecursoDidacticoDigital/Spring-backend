@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/api/auth")
-public class StrapiAuthController {
+public class AuthController {
     @Autowired
-    private StrapiAuthService loginService;
+    private AuthService loginService;
 
     @PostMapping("/local")
     public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest authRequest) {

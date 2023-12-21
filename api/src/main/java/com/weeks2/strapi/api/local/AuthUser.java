@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class UserStrapi {
+public class AuthUser {
     private int id;
     private String username;
     private String email;
