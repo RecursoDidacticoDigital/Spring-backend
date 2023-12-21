@@ -32,7 +32,10 @@ public enum Filters {
     OR("$or", "Joins the filters in an 'or' expression"),
     AND("$and", "Joins the filters in an 'and' expression"),
     NOT("$not", "Joins the filters in a 'not' expression"),
-    KEY("$key", "Key");
+    KEY("$key", "Key"),
+
+    LIVE("live", "returns only published entries (default)"),
+    PREVIEW("preview", "returns both draft entries & published entries)");
 
     private final String value;
     private final String description;
@@ -59,12 +62,22 @@ public enum Filters {
 
     /**
      * GET /api/:pluralApiId?filters[field][operator]=value
+     *
      */
     public static String addFilter(String uri, String field,Filters operator,String value) {
         return new StringBuilder(uri).append(uri.contains("?") ? '&' : '?')
                 .append("filters[").append(field).append("][")
-                .append(operator.getValue())
-                .append("]=").append(value)
+                .append(operator.getValue()).append("]=")
+                .append(value)
+                .toString();
+    }
+
+    /**
+     * GET /api/lessons?publicationState=preview | live
+     */
+    public static String addPublicationState(String uri, Filters operator) {
+        return new StringBuilder(uri).append(uri.contains("?") ? '&' : '?')
+                .append("publicationState=").append(operator.getValue())
                 .toString();
     }
 }

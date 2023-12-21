@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.weeks2.strapi.api.common.ClientRest;
 import com.weeks2.strapi.api.common.Filters;
 import com.weeks2.strapi.api.lesson.Lesson;
+import com.weeks2.strapi.api.lesson.LessonModel;
 import com.weeks2.strapi.api.local.AuthRequest;
 import com.weeks2.strapi.api.local.AuthResponse;
 import com.weeks2.strapi.api.local.AuthService;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @SpringBootTest
-class DataConverter {
+class DataConverterTest {
     @Autowired
     ClientRest clientRest;
 
@@ -49,7 +50,7 @@ class DataConverter {
                 .map(jsonNode -> toLesson(jsonNode))
                 .collect(Collectors.toList());
 
-        log.info("{}",data);
+        log.info("data {}",data);
 
     }
 
@@ -62,14 +63,12 @@ class DataConverter {
         log.info("{}",uriFilter());
     }
 
-    private Lesson toLesson(JsonNode jsonNode) {
+    private LessonModel toLesson(JsonNode jsonNode) {
         try {
             log.info("{}",jsonNode);
-            var attributes = clientRest.mapNode(jsonNode, Lesson.Attributes.class);
-            var lesson = new Lesson();
-            lesson.setId(jsonNode.get("id").asInt());
-            lesson.setAttributes(attributes);
-            return lesson;
+            var attributes = clientRest.mapNode(jsonNode, LessonModel.class);
+            attributes.setId(jsonNode.get("id").asInt());
+            return attributes;
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
