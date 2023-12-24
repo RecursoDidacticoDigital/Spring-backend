@@ -1,6 +1,9 @@
 package com.weeks2.strapi.school.member;
 
 import com.weeks2.strapi.api.common.ClientRest;
+import com.weeks2.strapi.school.member.Member;
+import com.weeks2.strapi.school.member.MemberData;
+import com.weeks2.strapi.school.member.MemberPayload;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,6 +53,13 @@ public class MemberService {
         return fetch(authHeader).stream()
                 .filter(l-> l.getEmail().equals(email))
                 .collect(Collectors.toList());
+    }
+
+    public void put(HttpHeaders headers, Member.Attributes data){
+        var payload = new MemberPayload();
+        payload.setData(data);
+        var member = rest.httpPutRequest(url+"/4", headers, payload, MemberData.class).getData();
+        log.info("{}",member);
     }
 
     public List<Member.Attributes> findByAccount(HttpHeaders authHeader, String account){

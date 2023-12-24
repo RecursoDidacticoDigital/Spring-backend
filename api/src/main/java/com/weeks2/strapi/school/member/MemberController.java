@@ -24,14 +24,15 @@ public class MemberController {
         return memberService.findById(headers,id);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public List<Member.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return memberService.findById(headers,id);
     }
 
-    @PutMapping("/{id}/put")
-    public List<Member.Attributes> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id){
-        return memberService.findById(headers, id);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @RequestBody Member.Attributes body){
+        memberService.put(headers, body);
+        return ResponseEntity.ok("SUCCESS"+body);
     }
 
     @PostMapping
