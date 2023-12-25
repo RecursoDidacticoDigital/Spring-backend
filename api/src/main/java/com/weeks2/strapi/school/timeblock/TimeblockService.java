@@ -31,25 +31,28 @@ public class TimeblockService {
         return l;
     }
 
-    public void create(HttpHeaders headers,Timeblock.Attributes data) {
+    public void create(HttpHeaders headers,Timeblock.Attributes body) {
         log.info("Data: ");
-        var payload = new TimeblockPayload();
-        payload.setData(data);
-
+        var payload = getTimeblockPayload(body);
         var response = rest.httpPostRequest(url, headers,payload, TimeblockData.class);
         log.info("response {}",response);
-    }
-
-    public void put(HttpHeaders headers, Timeblock.Attributes data){
-        var payload = new TimeblockPayload();
-        payload.setData(data);
-        var timeblock = rest.httpPutRequest(url+"/4", headers, payload, TimeblockData.class).getData();
-        log.info("{}",timeblock);
     }
 
     public List<Timeblock.Attributes> findById(HttpHeaders authHeader,int id) {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
                 .collect(Collectors.toList());
+    }
+
+    public void put(HttpHeaders headers, int id, Timeblock.Attributes body){
+        var payload = getTimeblockPayload(body);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, TimeblockData.class).getData();
+        log.info("{}",response);
+    }
+
+    private static TimeblockPayload getTimeblockPayload(Timeblock.Attributes data) {
+        var payload = new TimeblockPayload();
+        payload.setData(data);
+        return payload;
     }
 }

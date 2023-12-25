@@ -23,9 +23,15 @@ public class RequestController {
         return requestService.findById(headers,id);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public List<Request.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return requestService.findById(headers,id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Request.Attributes body){
+        requestService.put(headers, id, body);
+        return ResponseEntity.ok("SUCCESS");
     }
 
     @PostMapping

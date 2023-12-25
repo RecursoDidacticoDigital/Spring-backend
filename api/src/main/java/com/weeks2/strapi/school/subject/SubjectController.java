@@ -23,14 +23,15 @@ public class SubjectController {
         return subjectService.findById(headers,id);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public List<Subject.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return subjectService.findById(headers,id);
     }
 
-    @PutMapping("/{id}/put")
-    public List<Subject.Attributes> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id){
-        return subjectService.findById(headers, id);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Subject.Attributes body){
+        subjectService.put(headers, id, body);
+        return ResponseEntity.ok("SUCCESS");
     }
 
     @PostMapping

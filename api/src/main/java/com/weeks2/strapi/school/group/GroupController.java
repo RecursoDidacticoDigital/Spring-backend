@@ -23,12 +23,12 @@ public class GroupController {
         return groupService.findById(headers,id);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public List<Group.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return groupService.findById(headers,id);
     }
 
-    @PutMapping("/{id}/put")
+    @PutMapping("/{id}")
     public List<Group.Attributes> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id){
         return groupService.findById(headers, id);
     }

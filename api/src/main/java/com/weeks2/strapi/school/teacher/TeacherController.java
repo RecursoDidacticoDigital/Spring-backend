@@ -1,5 +1,6 @@
 package com.weeks2.strapi.school.teacher;
 import com.weeks2.strapi.api.common.AppEndPointsSchool;
+import com.weeks2.strapi.school.day.Day;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,12 @@ public class TeacherController {
     @GetMapping("/{id}")
     public List<Teacher.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return teacherService.findById(headers,id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Teacher.Attributes body){
+        teacherService.put(headers, id, body);
+        return ResponseEntity.ok("SUCCESS");
     }
 
     @PostMapping

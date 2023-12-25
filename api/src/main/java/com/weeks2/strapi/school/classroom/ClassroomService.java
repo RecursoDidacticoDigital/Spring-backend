@@ -45,4 +45,16 @@ public class ClassroomService {
                 .filter(l-> l.getId() == id)
                 .collect(Collectors.toList());
     }
+
+    public void put(HttpHeaders headers, int id, Classroom.Attributes body){
+        var payload = getClassroomPayload(body);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, ClassroomData.class);
+        log.info("{}",response);
+    }
+
+    private static ClassroomPayload getClassroomPayload(Classroom.Attributes data) {
+        var payload = new ClassroomPayload();
+        payload.setData(data);
+        return payload;
+    }
 }

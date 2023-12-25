@@ -23,14 +23,15 @@ public class ClassroomController {
         return classroomService.findById(headers,id);
     }
 
-    @DeleteMapping("/{id}/delete")
+    @DeleteMapping("/{id}")
     public List<Classroom.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return classroomService.findById(headers,id);
     }
 
-    @PutMapping("/{id}/put")
-    public List<Classroom.Attributes> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id){
-        return classroomService.findById(headers, id);
+    @PutMapping("/{id}")
+    public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Classroom.Attributes body){
+        classroomService.put(headers, id, body);
+        return ResponseEntity.ok("SUCCESS");
     }
 
     @PostMapping

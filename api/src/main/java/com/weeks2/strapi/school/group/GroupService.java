@@ -31,11 +31,9 @@ public class GroupService {
         return l;
     }
 
-    public void create(HttpHeaders headers,Group.Attributes data) {
+    public void create(HttpHeaders headers,Group.Attributes body) {
         log.info("Data: ");
-        var payload = new GroupPayload();
-        payload.setData(data);
-
+        var payload = getGroupPayload(body);
         var response = rest.httpPostRequest(url, headers,payload, GroupData.class);
         log.info("response {}",response);
     }
@@ -44,5 +42,17 @@ public class GroupService {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
                 .collect(Collectors.toList());
+    }
+
+    public void put(HttpHeaders headers, int id, Group.Attributes body){
+        var payload = getGroupPayload(body);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, GroupData.class);
+        log.info("{}",response);
+    }
+
+    private static GroupPayload getGroupPayload(Group.Attributes data) {
+        var payload = new GroupPayload();
+        payload.setData(data);
+        return payload;
     }
 }

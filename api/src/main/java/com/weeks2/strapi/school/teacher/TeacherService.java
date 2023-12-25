@@ -31,9 +31,8 @@ public class TeacherService {
         return l;
     }
 
-    public void create(HttpHeaders headers,Teacher.Attributes data) {
-        var payload = new TeacherPayload();
-        payload.setData(data);
+    public void create(HttpHeaders headers,Teacher.Attributes body) {
+        var payload = getTeacherPayload(body);
         var response = rest.httpPostRequest(url, headers,payload, TeacherData.class);
         log.info("response {}",response);
     }
@@ -42,5 +41,17 @@ public class TeacherService {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
                 .collect(Collectors.toList());
+    }
+
+    public void put(HttpHeaders headers, int id, Teacher.Attributes body){
+        var payload = getTeacherPayload(body);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, TeacherData.class);
+        log.info("{}",response);
+    }
+
+    private static TeacherPayload getTeacherPayload(Teacher.Attributes data) {
+        var payload = new TeacherPayload();
+        payload.setData(data);
+        return payload;
     }
 }

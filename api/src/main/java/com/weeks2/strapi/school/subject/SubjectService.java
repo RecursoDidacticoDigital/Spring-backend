@@ -31,11 +31,9 @@ public class SubjectService {
         return l;
     }
 
-    public void create(HttpHeaders headers,Subject.Attributes data) {
+    public void create(HttpHeaders headers,Subject.Attributes body) {
         log.info("Data: ");
-        var payload = new SubjectPayload();
-        payload.setData(data);
-
+        var payload = getSubjectPayload(body);
         var response = rest.httpPostRequest(url, headers,payload, SubjectData.class);
         log.info("response {}",response);
     }
@@ -44,5 +42,17 @@ public class SubjectService {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
                 .collect(Collectors.toList());
+    }
+
+    public void put(HttpHeaders headers, int id, Subject.Attributes body){
+        var payload = getSubjectPayload(body);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, SubjectData.class);
+        log.info("{}",response);
+    }
+
+    private static SubjectPayload getSubjectPayload(Subject.Attributes data) {
+        var payload = new SubjectPayload();
+        payload.setData(data);
+        return payload;
     }
 }

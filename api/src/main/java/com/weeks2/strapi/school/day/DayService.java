@@ -47,6 +47,7 @@ public class DayService {
     public void put(HttpHeaders headers, int id, Day.Attributes body) {
         var payload = getDayPayload(body);
         var response = rest.httpPutRequest(url+"/"+id, headers, payload, DayData.class);
+        log.info("{}",response);
     }
 
     private static DayPayload getDayPayload(Day.Attributes data) {

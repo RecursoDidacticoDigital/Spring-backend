@@ -30,8 +30,8 @@ public class MemberController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @RequestBody Member.Attributes body){
-        memberService.put(headers, body);
+    public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Member.Attributes body){
+        memberService.put(headers, id, body);
         return ResponseEntity.ok("SUCCESS"+body);
     }
 

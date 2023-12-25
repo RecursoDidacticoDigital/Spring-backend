@@ -31,11 +31,9 @@ public class RequestService {
         return l;
     }
 
-    public void create(HttpHeaders headers,Request.Attributes data) {
+    public void create(HttpHeaders headers,Request.Attributes body) {
         log.info("Data: ");
-        var payload = new RequestPayload();
-        payload.setData(data);
-
+        var payload = getRequestPayload(body);
         var response = rest.httpPostRequest(url, headers,payload, RequestData.class);
         log.info("response {}",response);
     }
@@ -44,5 +42,17 @@ public class RequestService {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
                 .collect(Collectors.toList());
+    }
+
+    public void put(HttpHeaders headers, int id, Request.Attributes body){
+        var payload = getRequestPayload(body);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, RequestData.class);
+        log.info("{}",response);
+    }
+
+    private static RequestPayload getRequestPayload(Request.Attributes data) {
+        var payload = new RequestPayload();
+        payload.setData(data);
+        return payload;
     }
 }
