@@ -29,6 +29,10 @@ public class ClientRest {
         ).getBody();
     }
 
+    public void httpDeleteRequest(String url, HttpHeaders authHeader){
+        restTemplate.delete(url, HttpMethod.DELETE, new HttpEntity<>(buildHeaders(authHeader)));
+    }
+
     public <P, R> R  httpPostRequest(String url, HttpHeaders authHeader, P payload, Class<R> response) {
         return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(payload,buildHeaders(authHeader)), response).getBody();
     }
