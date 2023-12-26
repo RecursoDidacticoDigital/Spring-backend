@@ -2,6 +2,7 @@ package com.weeks2.strapi.api.common;
 
 public class AppEndPointsSchool {
     public static final String SPRING_BASE_PATH_ = "/api";
+    public static final String AUTH_PATH = SPRING_BASE_PATH_+"/auth";
     public static final String MEMBER_AUTH_PATH = SPRING_BASE_PATH_+"/member_auth";
     public static final String LESSON_PATH_ = SPRING_BASE_PATH_+"/lessons";
     public static final String CLASSROOM_PATH_ = SPRING_BASE_PATH_+"/classrooms";
