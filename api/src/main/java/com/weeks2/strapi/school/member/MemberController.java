@@ -1,5 +1,7 @@
 package com.weeks2.strapi.school.member;
 import com.weeks2.strapi.api.common.AppEndPointsSchool;
+import com.weeks2.strapi.school.member.auth.AuthMemberRequest;
+import com.weeks2.strapi.school.member.auth.AuthMemberResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -40,29 +42,9 @@ public class MemberController {
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Member.Attributes body) {
         log.info("{}",body);
         // Id auto-incremental
-        // TODO: Poner esto en un método.
-        if(body.getId() == null){
-            int i = 1;
-            List<Member.Attributes> memberExist = memberService.fetch(headers);
-            if(!memberExist.isEmpty()){
-                while(i <= memberExist.size()){
-                    if(i == memberExist.size()){
-                        body.setId(i+1);
-                        break;
-                    }
-                    i++;
-                }
-            } else {
-                body.setId(1);
-            }
-        }
+        memberService.autoIncrementId(headers, body);
         if(body.getRol() == null && body.getAccount() != null){
-            if(body.getAccount().length() == 10){
-                body.setRol("STUDENT");
-            }
-            if(body.getAccount().length() == 6){
-                body.setRol("TEACHER");
-            }
+            memberService.assignRol(body);
         }
         else{
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Account is necessary");
@@ -70,5 +52,10 @@ public class MemberController {
         log.info("{}",body);
         memberService.create(headers,body);
         return ResponseEntity.ok("SUCCESSFUL");
+    }
+
+    @PostMapping("/local")
+    public ResponseEntity<AuthMemberResponse> authenticate(@RequestBody AuthMemberRequest authMemberRequest){
+        return memberService.auth(authMemberRequest);
     }
 }
