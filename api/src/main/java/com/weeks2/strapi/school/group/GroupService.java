@@ -38,6 +38,10 @@ public class GroupService {
         log.info("response {}",response);
     }
 
+    public void delete(HttpHeaders headers, int id){
+        rest.httpDeleteRequest(url+"/"+id, headers);
+    }
+
     public List<Group.Attributes> findById(HttpHeaders authHeader,int id) {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
@@ -46,7 +50,8 @@ public class GroupService {
 
     public void put(HttpHeaders headers, int id, Group.Attributes body){
         var payload = getGroupPayload(body);
-        var response = rest.httpPutRequest(url+"/"+id, headers, payload, GroupData.class);
+        log.info("Payload: "+payload);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, GroupData.class).getData();
         log.info("{}",response);
     }
 

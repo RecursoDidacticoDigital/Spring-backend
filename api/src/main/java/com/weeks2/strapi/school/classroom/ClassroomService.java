@@ -40,6 +40,10 @@ public class ClassroomService {
         log.info("response {}",response);
     }
 
+    public void delete(HttpHeaders headers, int id){
+        rest.httpDeleteRequest(url+"/"+id, headers);
+    }
+
     public List<Classroom.Attributes> findById(HttpHeaders authHeader,int id) {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
@@ -48,7 +52,7 @@ public class ClassroomService {
 
     public void put(HttpHeaders headers, int id, Classroom.Attributes body){
         var payload = getClassroomPayload(body);
-        var response = rest.httpPutRequest(url+"/"+id, headers, payload, ClassroomData.class);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, ClassroomData.class).getData();
         log.info("{}",response);
     }
 

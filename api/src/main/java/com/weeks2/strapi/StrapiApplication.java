@@ -9,5 +9,4 @@ public class StrapiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(StrapiApplication.class, args);
 	}
-
 }

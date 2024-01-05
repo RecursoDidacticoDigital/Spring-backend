@@ -27,6 +27,12 @@ public class TimeblockController {
         return timeblockService.findById(headers,id);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
+        timeblockService.delete(headers,id);
+        return ResponseEntity.ok("SUCCESS");
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Timeblock.Attributes body){
         timeblockService.put(headers, id, body);

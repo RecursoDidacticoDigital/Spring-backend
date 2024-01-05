@@ -24,8 +24,9 @@ public class SubjectController {
     }
 
     @DeleteMapping("/{id}")
-    public List<Subject.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
-        return subjectService.findById(headers,id);
+    public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
+        subjectService.delete(headers,id);
+        return ResponseEntity.ok("SUCCESS");
     }
 
     @PutMapping("/{id}")

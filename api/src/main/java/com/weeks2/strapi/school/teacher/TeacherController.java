@@ -23,6 +23,12 @@ public class TeacherController {
         return teacherService.findById(headers,id);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
+        teacherService.delete(headers,id);
+        return ResponseEntity.ok("SUCCESS");
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Teacher.Attributes body){
         teacherService.put(headers, id, body);

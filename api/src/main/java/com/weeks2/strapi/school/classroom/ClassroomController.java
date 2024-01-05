@@ -24,8 +24,9 @@ public class ClassroomController {
     }
 
     @DeleteMapping("/{id}")
-    public List<Classroom.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
-        return classroomService.findById(headers,id);
+    public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
+        classroomService.delete(headers,id);
+        return ResponseEntity.ok("SUCCESS");
     }
 
     @PutMapping("/{id}")

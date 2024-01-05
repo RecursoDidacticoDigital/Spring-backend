@@ -24,13 +24,15 @@ public class GroupController {
     }
 
     @DeleteMapping("/{id}")
-    public List<Group.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
-        return groupService.findById(headers,id);
+    public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
+        groupService.delete(headers,id);
+        return ResponseEntity.ok("SUCCESS");
     }
 
     @PutMapping("/{id}")
-    public List<Group.Attributes> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id){
-        return groupService.findById(headers, id);
+    public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Group.Attributes body){
+        groupService.put(headers, id, body);
+        return ResponseEntity.ok("{\n"+body+"\n}");
     }
 
     @PostMapping

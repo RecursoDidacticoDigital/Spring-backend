@@ -24,8 +24,9 @@ public class RequestController {
     }
 
     @DeleteMapping("/{id}")
-    public List<Request.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
-        return requestService.findById(headers,id);
+    public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
+        requestService.delete(headers,id);
+        return ResponseEntity.ok("SUCCESS");
     }
 
     @PutMapping("/{id}")

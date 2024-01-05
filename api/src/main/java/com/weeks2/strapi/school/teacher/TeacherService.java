@@ -37,6 +37,10 @@ public class TeacherService {
         log.info("response {}",response);
     }
 
+    public void delete(HttpHeaders headers, int id){
+        rest.httpDeleteRequest(url+"/"+id, headers);
+    }
+
     public List<Teacher.Attributes> findById(HttpHeaders authHeader,int id) {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
@@ -45,7 +49,7 @@ public class TeacherService {
 
     public void put(HttpHeaders headers, int id, Teacher.Attributes body){
         var payload = getTeacherPayload(body);
-        var response = rest.httpPutRequest(url+"/"+id, headers, payload, TeacherData.class);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, TeacherData.class).getData();
         log.info("{}",response);
     }
 

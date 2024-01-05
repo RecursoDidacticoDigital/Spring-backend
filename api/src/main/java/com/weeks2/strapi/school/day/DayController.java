@@ -24,8 +24,9 @@ public class DayController {
     }
 
     @DeleteMapping("/{id}")
-    public List<Day.Attributes> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
-        return dayService.findById(headers,id);
+    public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
+        dayService.delete(headers,id);
+        return ResponseEntity.ok("SUCCESS");
     }
 
     @PutMapping("/{id}")

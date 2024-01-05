@@ -38,6 +38,10 @@ public class DayService {
         log.info("response {}",response);
     }
 
+    public void delete(HttpHeaders headers, int id){
+        rest.httpDeleteRequest(url+"/"+id, headers);
+    }
+
     public List<Day.Attributes> findById(HttpHeaders authHeader,int id) {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
@@ -46,7 +50,8 @@ public class DayService {
 
     public void put(HttpHeaders headers, int id, Day.Attributes body) {
         var payload = getDayPayload(body);
-        var response = rest.httpPutRequest(url+"/"+id, headers, payload, DayData.class);
+        log.info("Payload: "+payload);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, DayData.class).getData();
         log.info("{}",response);
     }
 

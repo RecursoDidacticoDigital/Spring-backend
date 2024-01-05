@@ -38,6 +38,10 @@ public class SubjectService {
         log.info("response {}",response);
     }
 
+    public void delete(HttpHeaders headers, int id){
+        rest.httpDeleteRequest(url+"/"+id, headers);
+    }
+
     public List<Subject.Attributes> findById(HttpHeaders authHeader,int id) {
         return fetch(authHeader).stream()
                 .filter(l-> l.getId() == id)
@@ -46,7 +50,7 @@ public class SubjectService {
 
     public void put(HttpHeaders headers, int id, Subject.Attributes body){
         var payload = getSubjectPayload(body);
-        var response = rest.httpPutRequest(url+"/"+id, headers, payload, SubjectData.class);
+        var response = rest.httpPutRequest(url+"/"+id, headers, payload, SubjectData.class).getData();
         log.info("{}",response);
     }
 
