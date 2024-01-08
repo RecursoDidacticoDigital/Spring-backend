@@ -21,18 +21,27 @@ public class Subject {
         private String name;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String classroom;
-        @JsonInclude(JsonInclude.Include.NON_NULL)
         private String laboratory;
         private String teacher;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer day_id1;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer day_id2;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer day_id3;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer day_id4;
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Integer day_id5;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer timeblock_id1;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer timeblock_id2;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer timeblock_id3;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer timeblock_id4;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Integer timeblock_id5;
     }
 }

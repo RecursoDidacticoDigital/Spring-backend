@@ -15,9 +15,9 @@ public class Request {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         Integer id;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String memer_name;
+        private String member_name;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String memer_account;
+        private String member_account;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String department;
         @JsonInclude(JsonInclude.Include.NON_NULL)
