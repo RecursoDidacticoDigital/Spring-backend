@@ -26,4 +26,14 @@ public class AuthService {
                 headers),
                 AuthResponse.class);
     }
+
+    public AuthResponse createUser(String username, String email, String password) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> requestEntity = new HttpEntity<>(String.format("{\"username\": \"%s\", \"email\":\"%s\", \"password\":\"%s\", \"tenantId\":%d, \"tenantRole\":%d}",
+                username, email, password,0,0), headers);
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForObject("https://api-core-q9s1.onrender.com/api/auth/local/register",
+                requestEntity, AuthResponse.class);
+    }
 }

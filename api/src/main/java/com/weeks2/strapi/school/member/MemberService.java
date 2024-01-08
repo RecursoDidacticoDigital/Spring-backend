@@ -1,6 +1,9 @@
 package com.weeks2.strapi.school.member;
 
 import com.weeks2.strapi.api.common.ClientRest;
+import com.weeks2.strapi.api.local.AuthRequest;
+import com.weeks2.strapi.api.local.AuthResponse;
+import com.weeks2.strapi.api.local.AuthService;
 import com.weeks2.strapi.school.member.auth.AuthMemberRequest;
 import com.weeks2.strapi.school.member.auth.AuthMemberResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +25,28 @@ public class MemberService {
     private ClientRest rest;
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    AuthService auth;
+    private ResponseEntity<AuthResponse> token;
+    private HttpHeaders createHeaders(AuthMemberRequest auth) {
+        token = this.auth.auth(new AuthRequest(auth.getAccount(), auth.getPassword()));
+        var headers = new HttpHeaders();
+        headers.set("Authorization", "Bearer "+ token.getBody().getJwt());
+        headers.set("Content-Type", "application/json");
+        return headers;
+    }
+    private boolean validateUser(AuthMemberRequest authMemberRequest) {
+        var userValid = fetch(createHeaders(authMemberRequest));
+
+        return true;
+    }
+
+    private boolean isAuthenticated(Member.Attributes member, AuthMemberRequest authMemberRequest) {
+       return member.getAccount().equals(authMemberRequest.getAccount()) &&
+               member.getPassword().equals(authMemberRequest.getPassword());
+    }
+
 
     public List<Member.Attributes> fetch(HttpHeaders authHeader) {
         return rest.httpGetRequest(url, authHeader, MemberList.class)

@@ -16,9 +16,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.lang.reflect.Executable;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
@@ -33,11 +35,27 @@ public class ClientRestTest {
 
     private ResponseEntity<AuthResponse> token;
 
-    @BeforeEach
+    //@BeforeEach
     void init() {
         token = strapiAuthService.auth(new AuthRequest("normanroa97@hotmail.com",
                 "91b4d142823f7d20c5f08df69122de43f35f057a988d9619f6d3138485c9a203")
         );
+    }
+
+    @Test
+    void testWhenCreateUser() {
+          try {
+              String username = "test5";
+              String email = "c5@gmail.com";
+              AuthRequest authRequest = new AuthRequest(email,"000000");
+              var userCreated = strapiAuthService.createUser(username,authRequest.getIdentifier(),authRequest.getPassword());
+              log.info("{}",userCreated.getUser().getId());
+              token = strapiAuthService.auth(new AuthRequest(authRequest.getIdentifier(),authRequest.getPassword()));
+        }
+        catch (HttpClientErrorException e) {
+              log.info("{}",e.getMessage());
+        }
+        assertNotNull(token);
     }
     @Test
     void testGet(){
