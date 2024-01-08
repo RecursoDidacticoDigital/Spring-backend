@@ -44,7 +44,7 @@ public class ClientRestTest {
 
     @Test
     void testWhenCreateUser() {
-          try {
+        try {
               String username = "test5";
               String email = "c5@gmail.com";
               AuthRequest authRequest = new AuthRequest(email,"000000");

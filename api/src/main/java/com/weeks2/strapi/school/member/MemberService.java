@@ -11,10 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 @Slf4j
@@ -30,9 +32,44 @@ public class MemberService {
     AuthService auth;
     private ResponseEntity<AuthResponse> token;
 
-    private void createMember() {
+
+    public void createMember(Member.Attributes data) {
+        String memberAccount = data.getAccount();
+        String memberPassword = data.getPassword();
+        String memberName = data.getName();
+        String memberEmail = data.getEmail();
         // create member with user and pass
+        try{
+            var payload = new MemberPayload();
+            payload.setData(data);
+            AuthMemberRequest request = new AuthMemberRequest(memberAccount, memberPassword);
+            HttpHeaders headers = createHeaders(request);
+            rest.httpPostRequest(url, headers, payload, MemberData.class);
+        }
+        catch(HttpClientErrorException e){
+            log.info("{}", e.getMessage());
+        }
+
         // create strapi user with member credential
+        try{
+            AuthRequest authRequest = new AuthRequest(memberEmail, memberPassword);
+            var userCreated = auth.createUser(memberName, authRequest.getIdentifier(), authRequest.getPassword());
+            log.info("{}",userCreated.getUser().getId());
+            token = auth.auth(new AuthRequest(authRequest.getIdentifier(), authRequest.getPassword()));
+        }
+        catch(HttpClientErrorException e) {
+            log.info("{}", e.getMessage());
+        }
+
+    }
+    @Deprecated
+    public void create(HttpHeaders headers,Member.Attributes data) {
+        log.info("Data: ");
+        var payload = new MemberPayload();
+        payload.setData(data);
+
+        var response = rest.httpPostRequest(url, headers,payload,MemberData.class);
+        log.info("response {}",response);
     }
     private void validateMemberAccount() {
         // fetch members and validate exist username
@@ -55,7 +92,6 @@ public class MemberService {
        return member.getAccount().equals(authMemberRequest.getAccount()) &&
                member.getPassword().equals(authMemberRequest.getPassword());
     }
-
 
     public List<Member.Attributes> fetch(HttpHeaders authHeader) {
         return rest.httpGetRequest(url, authHeader, MemberList.class)
@@ -85,15 +121,6 @@ public class MemberService {
         var l = member.getAttributes();
         l.setId(member.getId());
         return l;
-    }
-
-    public void create(HttpHeaders headers,Member.Attributes data) {
-        log.info("Data: ");
-        var payload = new MemberPayload();
-        payload.setData(data);
-
-        var response = rest.httpPostRequest(url, headers,payload,MemberData.class);
-        log.info("response {}",response);
     }
 
     public void delete(HttpHeaders headers, int id){
@@ -130,23 +157,6 @@ public class MemberService {
         return payload;
     }
 
-    public void autoIncrementId(HttpHeaders headers, Member.Attributes body){
-        if(body.getId() == null){
-            int i = 1;
-            List<Member.Attributes> memberExist = fetch(headers);
-            if(!memberExist.isEmpty()){
-                while(i <= memberExist.size()){
-                    if(i == memberExist.size()){
-                        body.setId(i+1);
-                        break;
-                    }
-                    i++;
-                }
-            } else {
-                body.setId(1);
-            }
-        }
-    }
 
     public void assignRol(Member.Attributes body){
         if(body.getAccount().length() == 10){

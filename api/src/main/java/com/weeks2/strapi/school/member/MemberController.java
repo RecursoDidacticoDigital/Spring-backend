@@ -39,10 +39,9 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Member.Attributes body) {
+    public ResponseEntity<String> create(@RequestBody Member.Attributes body) {
         log.info("{}",body);
         // Id auto-incremental
-        memberService.autoIncrementId(headers, body);
         if(body.getRol() == null && body.getAccount() != null){
             memberService.assignRol(body);
         }
@@ -50,7 +49,7 @@ public class MemberController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Account is necessary");
         }
         log.info("{}",body);
-        memberService.create(headers,body);
+        memberService.createMember(body);
         return ResponseEntity.ok("SUCCESSFUL");
     }
 
