@@ -36,12 +36,12 @@ public class MemberService {
         headers.set("Content-Type", "application/json");
         return headers;
     }
-    private boolean validateUser(AuthMemberRequest authMemberRequest) {
+    private boolean validateUser(AuthMemberRequest authMemberRequest) throws NoSuchMethodException {
         var userValid = fetch(createHeaders(authMemberRequest));
-
-        return true;
+        throw new NoSuchMethodException("Not implemented");
     }
 
+    @Deprecated
     private boolean isAuthenticated(Member.Attributes member, AuthMemberRequest authMemberRequest) {
        return member.getAccount().equals(authMemberRequest.getAccount()) &&
                member.getPassword().equals(authMemberRequest.getPassword());
