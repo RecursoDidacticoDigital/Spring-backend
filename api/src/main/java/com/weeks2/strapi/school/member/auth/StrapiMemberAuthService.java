@@ -13,7 +13,7 @@ import org.springframework.web.client.RestTemplate;
 public class StrapiMemberAuthService {
     @Autowired
     private RestTemplate restTemplate;
-    @Value("${strapi.memberauth}")
+    @Value("${strapi.member}")
     String memberAuthApi;
 
     public ResponseEntity<AuthMemberResponse> auth(AuthMemberRequest authMemberRequest){

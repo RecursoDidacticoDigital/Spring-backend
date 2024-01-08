@@ -23,6 +23,11 @@ public class ClassroomController {
         return classroomService.findById(headers,id);
     }
 
+    @GetMapping("/{name}")
+    public List<Classroom.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("name") String name) {
+        return classroomService.findByName(headers,name);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         classroomService.delete(headers,id);

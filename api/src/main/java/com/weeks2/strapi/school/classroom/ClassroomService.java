@@ -50,6 +50,12 @@ public class ClassroomService {
                 .collect(Collectors.toList());
     }
 
+    public List<Classroom.Attributes> findByName(HttpHeaders authHeader, String name) {
+        return fetch(authHeader).stream()
+                .filter(classroom -> classroom.getName().equals(name))
+                .collect(Collectors.toList());
+    }
+
     public void put(HttpHeaders headers, int id, Classroom.Attributes body){
         var payload = getClassroomPayload(body);
         var response = rest.httpPutRequest(url+"/"+id, headers, payload, ClassroomData.class).getData();
