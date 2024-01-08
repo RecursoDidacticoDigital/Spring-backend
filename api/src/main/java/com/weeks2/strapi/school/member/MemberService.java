@@ -29,6 +29,15 @@ public class MemberService {
     @Autowired
     AuthService auth;
     private ResponseEntity<AuthResponse> token;
+
+    private void createMember() {
+        // create member with user and pass
+        // create strapi user with member credential
+    }
+    private void validateMemberAccount() {
+        // fetch members and validate exist username
+        // auth in strapi with credential from member request
+    }
     private HttpHeaders createHeaders(AuthMemberRequest auth) {
         token = this.auth.auth(new AuthRequest(auth.getAccount(), auth.getPassword()));
         var headers = new HttpHeaders();
