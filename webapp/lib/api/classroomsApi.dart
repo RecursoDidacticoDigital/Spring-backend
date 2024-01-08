@@ -1,4 +1,4 @@
-import 'package:admin_dashboard_new/api/EscomapApi.dart';
+import 'package:admin_dashboard_new/api/EscomapMainApi.dart';
 import 'package:admin_dashboard_new/models/http/classrooms_response.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +17,7 @@ class ClassroomsProvider extends ChangeNotifier {
   }
 
   getClassroom(String name) async{
-    final resp = await EscomapApi.getClassroomByName(name);
+    final resp = await EscomapApi.httpGet('/classrooms/$name');
     final classroomResp = ClassroomsResponses.fromMap(resp);
 
     salones = classroomResp.salones;

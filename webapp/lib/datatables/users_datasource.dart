@@ -1,5 +1,5 @@
 import 'package:admin_dashboard_new/models/http/users_response.dart';
-import 'package:admin_dashboard_new/providers/auth_provider.dart';
+import 'package:admin_dashboard_new/api/authApi.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

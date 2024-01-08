@@ -1,4 +1,4 @@
-import 'package:admin_dashboard_new/providers/auth_provider.dart';
+import 'package:admin_dashboard_new/api/authApi.dart';
 import 'package:admin_dashboard_new/ui/cards/white_card.dart';
 import 'package:admin_dashboard_new/ui/labels/custom_labels.dart';
 import 'package:flutter/material.dart';

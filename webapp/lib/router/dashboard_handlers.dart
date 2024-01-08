@@ -14,7 +14,7 @@ import 'package:admin_dashboard_new/ui/views/user_list_view.dart';
 import 'package:fluro/fluro.dart';
 import 'package:provider/provider.dart';
 
-import 'package:admin_dashboard_new/providers/auth_provider.dart';
+import 'package:admin_dashboard_new/api/authApi.dart';
 import 'package:admin_dashboard_new/ui/views/dashboard_view.dart';
 
 class DashboardHandlers {

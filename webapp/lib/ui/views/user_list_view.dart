@@ -1,7 +1,7 @@
 import 'package:admin_dashboard_new/datatables/users_datasource.dart';
 import 'package:admin_dashboard_new/models/http/users_response.dart';
-import 'package:admin_dashboard_new/providers/auth_provider.dart';
-import 'package:admin_dashboard_new/providers/users_provider.dart';
+import 'package:admin_dashboard_new/api/authApi.dart';
+import 'package:admin_dashboard_new/api/usersApi.dart';
 import 'package:admin_dashboard_new/ui/cards/white_card.dart';
 import 'package:admin_dashboard_new/ui/labels/custom_labels.dart';
 import 'package:flutter/material.dart';

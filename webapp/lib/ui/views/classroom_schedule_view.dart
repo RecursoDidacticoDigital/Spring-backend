@@ -1,12 +1,8 @@
 import 'package:admin_dashboard_new/datatables/subjects_datasource.dart';
-import 'package:admin_dashboard_new/datatables/users_datasource.dart';
-import 'package:admin_dashboard_new/models/http/classrooms_response.dart';
 import 'package:admin_dashboard_new/models/http/subjects_response.dart';
-import 'package:admin_dashboard_new/models/http/users_response.dart';
-import 'package:admin_dashboard_new/providers/auth_provider.dart';
-import 'package:admin_dashboard_new/providers/classrooms_provider.dart';
-import 'package:admin_dashboard_new/providers/subjects_provider.dart';
-import 'package:admin_dashboard_new/ui/buttons/custom_icon_button.dart';
+import 'package:admin_dashboard_new/api/authApi.dart';
+import 'package:admin_dashboard_new/api/classroomsApi.dart';
+import 'package:admin_dashboard_new/api/subjectsApi.dart';
 import 'package:admin_dashboard_new/ui/cards/white_card.dart';
 import 'package:admin_dashboard_new/ui/labels/custom_labels.dart';
 import 'package:flutter/material.dart';
