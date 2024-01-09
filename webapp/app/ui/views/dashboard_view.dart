@@ -1,4 +1,5 @@
 import '../../api/authApi.dart';
+import '../../api/classroomsApi.dart';
 import '../cards/white_card.dart';
 import '../labels/custom_labels.dart';
 import 'package:flutter/material.dart';
@@ -11,8 +12,11 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const double classroomWidth = 7;
+    const double classroomHeight = 5;
     
     final user = Provider.of<AuthApi>(context).user!;
+    final salones = Provider.of<ClassroomsApi>(context).salones;
     // ignore: avoid_unnecessary_containers
     return Container(
       child: ListView(
@@ -27,25 +31,35 @@ class DashboardView extends StatelessWidget {
 
           const SizedBox(height: 20),
           
-          SizedBox(
-            height: 700,
-            width: double.infinity,
-            child: Center(
-              child: InteractiveViewer(
-                maxScale: 3.0,
-                minScale: 0.01,
-                child: SvgPicture.asset(
-                  'Salon1001.svg',
-                  semanticsLabel: 'Salón 1001',
-                  height: 700,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  
+          InteractiveViewer(
+            boundaryMargin: const EdgeInsets.all(20.0),
+            minScale: 0.1,
+            maxScale: 5,
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                SvgPicture.asset(
+                  'ESCOMAP_Planta_baja-Model.svg'
                 ),
-              ),
+                // Classrooms
+                Positioned(
+                  left: 5,
+                  top: 5,
+                  child: InkWell(
+                    onTap: (){},
+                    child: Container(
+                      width: classroomWidth,
+                      height: classroomHeight,
+                      color: Colors.blue,
+                      child: Icon(
+                        Icons.circle_notifications_outlined, color: Colors.red
+                      ),
+                    )
+                  )
+                )
+              ]
             ),
           ),
-
         ],
       ),
     );

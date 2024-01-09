@@ -8,13 +8,12 @@ class LoginFormProvider extends ChangeNotifier{
   GlobalKey<FormState> formKey = new GlobalKey<FormState>();
 
   String account = '';
+  String email = '';
   String password = '';
 
   bool validateForm(){
     
     if(formKey.currentState!.validate()){
-      //print('Form valid ... Login');
-      //print('$account === $password');
       return true;
     } else {
       print('Form not valid');

@@ -23,10 +23,11 @@ class AuthApi
     isAuthenticated();
   }
 
-  login( String account, String password ) async {
+  login( String account, String email, String password ) async {
 
     final data = {
       'password': password,
+      'email': email,
       'account': account
     };
 
@@ -48,7 +49,7 @@ class AuthApi
       }
     ).catchError((e){
       print('error en: $e');
-      NotificationsService.showSnackbarError('Número de cuenta / Contraseña no válidos');
+      NotificationsService.showSnackbarError('Número de cuenta / Correo / Contraseña no válidos');
     });
   }
 

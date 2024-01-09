@@ -1,3 +1,5 @@
+import 'package:email_validator/email_validator.dart';
+
 import '../../api/authApi.dart';
 import '../../providers/login_form_provider.dart';
 //import 'package:email_validator/email_validator.dart';
@@ -57,6 +59,23 @@ class LoginView extends StatelessWidget {
                         icon: Icons.account_box_outlined,
                       ),
                     ),
+
+                    const SizedBox(height: 20),
+
+                      // Email
+                      TextFormField(
+                        onChanged: (value) => loginFormProvider.email = value,
+                        validator: (value){
+                          if(!EmailValidator.validate(value ?? '')) return 'Email no válido';
+                          return null;
+                        },
+                        style: const TextStyle(color: Colors.white),
+                        decoration: CustomInputs.loginInputDecoration(
+                          hint: 'Ingrese su Correo Institucional',
+                          label: 'Email Inst.',
+                          icon: Icons.email_outlined,
+                        ),
+                      ),
       
                     const SizedBox(height: 20),
       
@@ -113,6 +132,6 @@ class LoginView extends StatelessWidget {
 void onFormSubmit(LoginFormProvider loginFormProvider, AuthApi authProvider) {
   final isValid = loginFormProvider.validateForm();
   if(isValid){
-    authProvider.login(loginFormProvider.account, loginFormProvider.password);
+    authProvider.login(loginFormProvider.account, loginFormProvider.email, loginFormProvider.password);
   }
 }
