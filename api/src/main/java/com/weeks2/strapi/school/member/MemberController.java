@@ -58,4 +58,10 @@ public class MemberController {
         memberService.validateMemberAccount(authMemberRequest);
         return ResponseEntity.ok("Login Successful");
     }
+    /*
+    {
+        "identifier": "normanroa97@hotmail.com",
+        "password": "91b4d142823f7d20c5f08df69122de43f35f057a988d9619f6d3138485c9a203"
+    }
+    */
 }
