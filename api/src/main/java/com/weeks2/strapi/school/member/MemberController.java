@@ -1,5 +1,6 @@
 package com.weeks2.strapi.school.member;
 import com.weeks2.strapi.api.common.AppEndPointsSchool;
+import com.weeks2.strapi.api.local.AuthResponse;
 import com.weeks2.strapi.school.member.auth.AuthMemberRequest;
 import com.weeks2.strapi.school.member.auth.AuthMemberResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -54,9 +55,8 @@ public class MemberController {
     }
 
     @PostMapping("/local")
-    public ResponseEntity<String> authenticate(@RequestBody AuthMemberRequest authMemberRequest){
-        memberService.validateMemberAccount(authMemberRequest);
-        return ResponseEntity.ok("Login Successful");
+    public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthMemberRequest authMemberRequest){
+        return memberService.validateMemberAccount(authMemberRequest);
     }
     /*
     {
