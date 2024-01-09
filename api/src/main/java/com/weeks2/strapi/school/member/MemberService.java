@@ -33,15 +33,15 @@ public class MemberService {
     private ResponseEntity<AuthResponse> token;
 
 
-    public void createMember(Member.Attributes data) {
-        String memberAccount = data.getAccount();
-        String memberPassword = data.getPassword();
-        String memberName = data.getName();
-        String memberEmail = data.getEmail();
+    public void createMember(Member.Attributes body) {
+        String memberAccount = body.getAccount();
+        String memberPassword = body.getPassword();
+        String memberName = body.getName();
+        String memberEmail = body.getEmail();
         // create member with user and pass
         try{
             var payload = new MemberPayload();
-            payload.setData(data);
+            payload.setData(body);
             AuthMemberRequest request = new AuthMemberRequest(memberAccount, memberPassword);
             HttpHeaders headers = createHeaders(request);
             rest.httpPostRequest(url, headers, payload, MemberData.class);
@@ -52,39 +52,55 @@ public class MemberService {
 
         // create strapi user with member credential
         try{
-            AuthRequest authRequest = new AuthRequest(memberEmail, memberPassword);
-            var userCreated = auth.createUser(memberName, authRequest.getIdentifier(), authRequest.getPassword());
+            var userCreated = auth.createUser(memberName, memberEmail, memberPassword);
             log.info("{}",userCreated.getUser().getId());
-            token = auth.auth(new AuthRequest(authRequest.getIdentifier(), authRequest.getPassword()));
         }
         catch(HttpClientErrorException e) {
             log.info("{}", e.getMessage());
         }
 
     }
-    @Deprecated
-    public void create(HttpHeaders headers,Member.Attributes data) {
-        log.info("Data: ");
-        var payload = new MemberPayload();
-        payload.setData(data);
 
-        var response = rest.httpPostRequest(url, headers,payload,MemberData.class);
-        log.info("response {}",response);
+    public void validateMemberAccount(AuthMemberRequest authMemberRequest) {
+        try {
+            // fetch members and validate exist username
+            HttpHeaders headers = createHeaders(authMemberRequest);
+            List<Member.Attributes> members = fetch(headers);
+            String memberAccount = authMemberRequest.getAccount();
+
+            Member.Attributes matchedMember = members.stream()
+                    .filter(member -> member.getAccount().equals(memberAccount))
+                    .findFirst()
+                    .orElseThrow(() -> new NoSuchMethodException("Member not found"));
+
+            String memberEmail = matchedMember.getEmail();
+            String memberPassword = matchedMember.getPassword();
+            var userValid = validateUser(authMemberRequest);
+            if (userValid) {
+                try {
+                    // auth in strapi with credential from member request
+                    AuthRequest authRequest = new AuthRequest(memberEmail, memberPassword);
+                    token = auth.auth(authRequest);
+                } catch (HttpClientErrorException e) {
+                    log.info("{}", e.getMessage());
+                }
+            }
+        } catch (NoSuchMethodException e) {
+            log.error("No matching member found: {}", e.getMessage());
+        }
     }
-    private void validateMemberAccount() {
-        // fetch members and validate exist username
-        // auth in strapi with credential from member request
+
+    private boolean validateUser(AuthMemberRequest authMemberRequest) throws NoSuchMethodException {
+        var userValid = fetch(createHeaders(authMemberRequest));
+        throw new NoSuchMethodException("Not implemented");
     }
+
     private HttpHeaders createHeaders(AuthMemberRequest auth) {
         token = this.auth.auth(new AuthRequest(auth.getAccount(), auth.getPassword()));
         var headers = new HttpHeaders();
         headers.set("Authorization", "Bearer "+ token.getBody().getJwt());
         headers.set("Content-Type", "application/json");
         return headers;
-    }
-    private boolean validateUser(AuthMemberRequest authMemberRequest) throws NoSuchMethodException {
-        var userValid = fetch(createHeaders(authMemberRequest));
-        throw new NoSuchMethodException("Not implemented");
     }
 
     @Deprecated
@@ -100,6 +116,17 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
+    @Deprecated
+    public void create(HttpHeaders headers,Member.Attributes data) {
+        log.info("Data: ");
+        var payload = new MemberPayload();
+        payload.setData(data);
+
+        var response = rest.httpPostRequest(url, headers,payload,MemberData.class);
+        log.info("response {}",response);
+    }
+
+    @Deprecated
     public ResponseEntity<AuthMemberResponse> auth(AuthMemberRequest authMemberRequest){
         ResponseEntity<AuthMemberResponse> response;
         HttpHeaders headers = new HttpHeaders();

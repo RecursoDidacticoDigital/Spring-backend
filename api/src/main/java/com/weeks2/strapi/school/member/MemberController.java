@@ -54,7 +54,8 @@ public class MemberController {
     }
 
     @PostMapping("/local")
-    public ResponseEntity<AuthMemberResponse> authenticate(@RequestBody AuthMemberRequest authMemberRequest){
-        return memberService.auth(authMemberRequest);
+    public ResponseEntity<String> authenticate(@RequestBody AuthMemberRequest authMemberRequest){
+        memberService.validateMemberAccount(authMemberRequest);
+        return ResponseEntity.ok("Login Successful");
     }
 }
