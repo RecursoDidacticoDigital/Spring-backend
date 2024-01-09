@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:admin_dashboard_new/api/EscomapMainApi.dart';
+import 'package:admin_dashboard_new/api/ApiClient.dart';
 
 import 'package:admin_dashboard_new/router/router.dart';
 
@@ -21,7 +21,7 @@ import 'package:admin_dashboard_new/ui/layouts/splash/splash_layout.dart';
 void main() async{
 
   await LocalStorages.configurePrefs();
-  EscomapApi.configureDio();
+  ApiClient.configureDio();
   Flurorouter.configureRoutes();
   
 

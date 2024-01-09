@@ -1,4 +1,4 @@
-import 'package:admin_dashboard_new/api/EscomapMainApi.dart';
+import 'package:admin_dashboard_new/api/ApiClient.dart';
 import 'package:admin_dashboard_new/models/http/auth_response.dart';
 import 'package:admin_dashboard_new/router/router.dart';
 import 'package:admin_dashboard_new/services/local_storage.dart';
@@ -28,7 +28,7 @@ class AuthProvider extends ChangeNotifier {
       'account': account
     };
 
-    EscomapApi.post('/members/local', data).then(
+    ApiClient.post('/members/local', data).then(
       (json){
         print(json);
         final authResponse = AuthResponses.fromMap(json);
@@ -40,7 +40,7 @@ class AuthProvider extends ChangeNotifier {
         
         NavigationService.replaceTo(Flurorouter.dashboardRoute);
 
-        EscomapApi.configureDio();
+        ApiClient.configureDio();
         notifyListeners();
 
       }
@@ -59,7 +59,7 @@ class AuthProvider extends ChangeNotifier {
       'account': account
     };
 
-    EscomapApi.post('/members', data).then(
+    ApiClient.post('/members', data).then(
       (json){
         final authResponse = AuthResponses.fromMap(json);
         user = authResponse.usuario;
@@ -70,7 +70,7 @@ class AuthProvider extends ChangeNotifier {
         
         NavigationService.replaceTo(Flurorouter.dashboardRoute);
 
-        EscomapApi.configureDio();
+        ApiClient.configureDio();
         notifyListeners();
 
       }
@@ -91,7 +91,7 @@ class AuthProvider extends ChangeNotifier {
     }
 
     try {
-      final resp = await EscomapApi.httpGet('/');
+      final resp = await ApiClient.httpGet('/');
       final authResponse = AuthResponses.fromMap(resp);
       LocalStorages.prefs.setString('jwt', authResponse.token);
 
