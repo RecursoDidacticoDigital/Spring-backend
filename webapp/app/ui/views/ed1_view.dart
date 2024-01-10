@@ -20,6 +20,7 @@ class _Ed1ViewState extends State<Ed1View> {
   @override
   Widget build(BuildContext context) {
     
+    final authRole = Provider.of<AuthApi>(context).role!;
     final user = Provider.of<AuthApi>(context).user!;
     // ignore: avoid_unnecessary_containers
     return Container(
@@ -29,8 +30,8 @@ class _Ed1ViewState extends State<Ed1View> {
           Text('Edificio 1', style: CustomLabels.h1),
           
           WhiteCard(
-            title: user.userRole,
-            child: Text("Hola ${user.userName}")
+            title: authRole,
+            child: Text("Hola ${user.username}")
           ),
 
           const SizedBox(height: 20),

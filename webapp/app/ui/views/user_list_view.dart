@@ -31,6 +31,7 @@ class _UserListViewState extends State<UserListView> {
   @override
   Widget build(BuildContext context) {
 
+    final authRole = Provider.of<AuthApi>(context).role!;
     final user = Provider.of<AuthApi>(context).user!;
     final List<Usuarios> usuarios = Provider.of<UsersApi>(context).usuarios;
     // ignore: avoid_unnecessary_containers
@@ -41,8 +42,8 @@ class _UserListViewState extends State<UserListView> {
           Text('Lista de usuarios', style: CustomLabels.h1),
           
           WhiteCard(
-            title: user.userRole,
-            child: Text("Hola ${user.userName}")
+            title: authRole,
+            child: Text("Hola ${user.username}")
           ),
 
           const SizedBox(height: 20),

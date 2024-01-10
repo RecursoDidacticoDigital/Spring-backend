@@ -1,12 +1,17 @@
+import 'package:meta/meta.dart';
 import 'dart:convert';
-
+// TODO: Terminar de adaptar a la api
 class AuthResponses {
-    Usuario usuario;
-    String token;
+    String jwt;
+    String role;
+    dynamic errorMessage;
+    User user;
 
     AuthResponses({
-        required this.usuario,
-        required this.token,
+        required this.jwt,
+        required this.role,
+        required this.errorMessage,
+        required this.user,
     });
 
     factory AuthResponses.fromJson(String str) => AuthResponses.fromMap(json.decode(str));
@@ -14,52 +19,72 @@ class AuthResponses {
     String toJson() => json.encode(toMap());
 
     factory AuthResponses.fromMap(Map<String, dynamic> json) => AuthResponses(
-        usuario: Usuario.fromMap(json["usuario"]),
-        token: json["token"],
+        jwt: json["jwt"],
+        role: json["role"],
+        errorMessage: json["errorMessage"],
+        user: User.fromMap(json["user"]),
     );
 
     Map<String, dynamic> toMap() => {
-        "usuario": usuario.toMap(),
-        "token": token,
+        "jwt": jwt,
+        "role": role,
+        "errorMessage": errorMessage,
+        "user": user.toMap(),
     };
 }
 
-class Usuario {
-    int userId;
-    String userName;
-    String userAccount;
-    String userEmail;
-    String userPassword;
-    String userRole;
+class User {
+    int id;
+    String username;
+    String email;
+    String provider;
+    bool confirmed;
+    bool blocked;
+    DateTime createdAt;
+    DateTime updatedAt;
+    int tenantId;
+    String tenantRole;
 
-    Usuario({
-        required this.userId,
-        required this.userName,
-        required this.userAccount,
-        required this.userEmail,
-        required this.userPassword,
-        required this.userRole,
+    User({
+        required this.id,
+        required this.username,
+        required this.email,
+        required this.provider,
+        required this.confirmed,
+        required this.blocked,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.tenantId,
+        required this.tenantRole,
     });
 
-    factory Usuario.fromJson(String str) => Usuario.fromMap(json.decode(str));
+    factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
     String toJson() => json.encode(toMap());
 
-    factory Usuario.fromMap(Map<String, dynamic> json) => Usuario(
-        userId: json["user_id"],
-        userName: json["user_name"],
-        userAccount: json["user_account"],
-        userEmail: json["user_email"],
-        userPassword: json["user_password"],
-        userRole: json["user_role"],
+    factory User.fromMap(Map<String, dynamic> json) => User(
+        id: json["id"],
+        username: json["username"],
+        email: json["email"],
+        provider: json["provider"],
+        confirmed: json["confirmed"],
+        blocked: json["blocked"],
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        tenantId: json["tenantId"],
+        tenantRole: json["tenantRole"],
     );
 
     Map<String, dynamic> toMap() => {
-        "user_id": userId,
-        "user_name": userName,
-        "user_account": userAccount,
-        "user_email": userEmail,
-        "user_password": userPassword,
-        "user_role": userRole,
+        "id": id,
+        "username": username,
+        "email": email,
+        "provider": provider,
+        "confirmed": confirmed,
+        "blocked": blocked,
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "tenantId": tenantId,
+        "tenantRole": tenantRole,
     };
 }

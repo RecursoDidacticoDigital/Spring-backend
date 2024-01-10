@@ -12,6 +12,7 @@ class Ed5View extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final authRole = Provider.of<AuthApi>(context).role!;
     final user = Provider.of<AuthApi>(context).user!;
     // ignore: avoid_unnecessary_containers
     return Container(
@@ -21,8 +22,8 @@ class Ed5View extends StatelessWidget {
           Text('Edificio 5', style: CustomLabels.h1),
           
           WhiteCard(
-            title: user.userRole,
-            child: Text('Hola ${user.userName}'),
+            title: authRole,
+            child: Text('Hola ${user.username}'),
           ),
 
           const SizedBox(height: 20),

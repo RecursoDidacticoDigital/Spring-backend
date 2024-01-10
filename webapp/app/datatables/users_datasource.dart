@@ -12,17 +12,18 @@ class UsersDTS extends DataTableSource {
 
   @override
   DataRow getRow(int index) {
-    final user = Provider.of<AuthApi>(context).user!;
+
+    final authRole = Provider.of<AuthApi>(context).role!;
     bool isAdmin;
     final usuario = usuarios[index];
-    if(usuario.userRole == 'superadmin' || usuario.userRole == 'administrador'){
+    if(usuario.userRole == 'SUPERADMIN' || usuario.userRole == 'ADMINISTRADOR'){
       isAdmin = true;
     } else {
       isAdmin = false;
     }
     
     // Return only teachers on the list
-    if(user.userRole == 'jefe de departamento'){
+    if(authRole == 'JEFE DE DEPARTAMENTO'){
       while(usuario.userRole == 'profesor'){
         return DataRow.byIndex(
           index: index,
@@ -53,9 +54,9 @@ class UsersDTS extends DataTableSource {
       }
     }
 
-    // Return all the users except for superadmin
-    if(user.userRole == 'administrador'){
-      while(usuario.userRole != 'superadmin'){
+    // Return all the users except for SUPERADMIN
+    if(authRole == 'ADMINISTRADOR'){
+      while(authRole != 'SUPERADMIN'){
         return DataRow.byIndex(
           index: index,
           cells: [
@@ -63,7 +64,7 @@ class UsersDTS extends DataTableSource {
             DataCell(Text(usuario.userName)),
             DataCell(Text(usuario.userAccount)),
             DataCell(Text(usuario.userEmail)),
-            DataCell(Text(usuario.userRole)),
+            DataCell(Text(authRole)),
             DataCell(
               Row(
                 children: [
@@ -101,8 +102,8 @@ class UsersDTS extends DataTableSource {
       }
     }
 
-    // Return all the users if user.userRole == 'superadmin'
-    if(user.userRole == 'superadmin'){
+    // Return all the users if authRole == 'SUPERADMIN'
+    if(authRole == 'SUPERADMIN'){
       return DataRow.byIndex(
         index: index,
         cells: [

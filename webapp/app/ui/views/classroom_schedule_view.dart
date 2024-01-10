@@ -1,4 +1,5 @@
 import '../../datatables/subjects_datasource.dart';
+import '../../models/http/auth_response.dart';
 import '../../models/http/subjects_response.dart';
 import '../../api/authApi.dart';
 import '../../api/classroomsApi.dart';
@@ -31,7 +32,8 @@ class _ClassroomScheduleViewState extends State<ClassroomScheduleView> {
 
   @override
   Widget build(BuildContext context) {
-
+    
+    final authRole = Provider.of<AuthApi>(context).role!;
     final user = Provider.of<AuthApi>(context).user!;
     final List<Materias> materias = Provider.of<SubjectsApi>(context).materias;
     // Here I used the materia variable to access one of the subjects on the list.
@@ -44,8 +46,8 @@ class _ClassroomScheduleViewState extends State<ClassroomScheduleView> {
           Text('Salón ${salon.name}', style: CustomLabels.h1),
           
           WhiteCard(
-            title: user.userRole,
-            child: Text("Hola ${user.userName}")
+            title: authRole,
+            child: Text("Hola ${user.username}")
           ),
 
           const SizedBox(height: 20),

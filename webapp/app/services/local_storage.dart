@@ -8,4 +8,11 @@ class LocalStorages {
     prefs = await SharedPreferences.getInstance();
   }
 
+  static Future<void> saveJwt(String token) async{
+    await prefs.setString('jwt', token);
+  }
+
+  static Future<String> readJwt() async{
+    return prefs.getString('jwt') ?? '';
+  }
 }
