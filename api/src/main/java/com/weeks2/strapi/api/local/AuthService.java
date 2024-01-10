@@ -16,24 +16,26 @@ public class AuthService {
     @Value("${strapi.auth}")
     String authApi;
 
+    @Value("${strapi.register}")
+    String authApiRegister;
+
     public ResponseEntity<AuthResponse> auth(AuthRequest authRequest) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
         return restTemplate.postForEntity(authApi, new HttpEntity<>(
                 String.format("{\"identifier\": \"%s\", \"password\": \"%s\"}",
                         authRequest.getIdentifier(),
                         authRequest.getPassword()),
-                headers),
-                AuthResponse.class);
+                createHeader()), AuthResponse.class);
     }
 
     public AuthResponse createUser(String username, String email, String password) {
+        return restTemplate.postForObject(authApiRegister, new HttpEntity<>(
+                String.format("{\"username\": \"%s\", \"email\":\"%s\", \"password\":\"%s\", \"tenantId\":%d, \"tenantRole\":%d}",
+                        username, email, password,0,0), createHeader()), AuthResponse.class);
+    }
+
+    private HttpHeaders createHeader() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> requestEntity = new HttpEntity<>(String.format("{\"username\": \"%s\", \"email\":\"%s\", \"password\":\"%s\", \"tenantId\":%d, \"tenantRole\":%d}",
-                username, email, password,0,0), headers);
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.postForObject("https://api-core-q9s1.onrender.com/api/auth/local/register",
-                requestEntity, AuthResponse.class);
+        return headers;
     }
 }
