@@ -3,6 +3,7 @@ import com.weeks2.strapi.api.common.AppEndPointsSchool;
 import com.weeks2.strapi.api.local.AuthResponse;
 import com.weeks2.strapi.school.member.auth.AuthMemberRequest;
 import com.weeks2.strapi.school.member.auth.AuthMemberResponse;
+import com.weeks2.strapi.school.utility.SecurityUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Slf4j
+@CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
 @RestController
 @RequestMapping(AppEndPointsSchool.MEMBER_PATH_)
 public class MemberController {
@@ -42,11 +44,18 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<String> create(@RequestBody Member.Attributes body) {
         log.info("{}",body);
-        // Id auto-incremental
+
+        // Encode the password
+        if(body.getPassword() != null && !body.getPassword().isEmpty()){
+            String encodedPassword = SecurityUtils.toSHA256(body.getPassword());
+            body.setPassword(encodedPassword);
+        }
+
+        // Assign rol if not provided
         if(body.getRol() == null && body.getAccount() != null){
             memberService.assignRol(body);
         }
-        else{
+        if(body.getAccount() == null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Account is necessary");
         }
         log.info("{}",body);
@@ -56,12 +65,8 @@ public class MemberController {
 
     @PostMapping("/local")
     public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthMemberRequest authMemberRequest){
-        return memberService.validateMemberAccount(authMemberRequest);
+        // Hash the password
+        String passwordHash = SecurityUtils.toSHA256(authMemberRequest.getPassword());
+        return memberService.validateMemberAccount(authMemberRequest, passwordHash);
     }
-    /*
-    {
-        "identifier": "normanroa97@hotmail.com",
-        "password": "91b4d142823f7d20c5f08df69122de43f35f057a988d9619f6d3138485c9a203"
-    }
-    */
 }

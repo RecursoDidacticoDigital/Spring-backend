@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
 @RestController
 @RequestMapping(AppEndPointsSchool.TEACHER_PATH_)
 public class TeacherController {

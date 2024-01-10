@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @Slf4j
+@CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
 @RestController
 @RequestMapping(AppEndPointsSchool.SUBJECT_PATH_)
 public class SubjectController {
