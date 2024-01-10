@@ -53,7 +53,7 @@ public class MemberService {
             log.info("{}", e.getMessage());
         }
         AuthRequest request = new AuthRequest(memberEmail, memberPassword);
-        HttpHeaders headers = createHeaders(request);
+        HttpHeaders headers = createHeaders(request, memberEmail, memberPassword);
         // create member with user and pass
         try{
             create(headers, body);
@@ -63,39 +63,64 @@ public class MemberService {
         }
     }
 
-    public ResponseEntity<AuthResponse> validateMemberAccount(AuthMemberRequest authMemberRequest) {
+    public ResponseEntity<AuthResponse> validateMemberAccount(AuthMemberRequest authMemberRequest, String hashedPassword) {
         try {
-            // fetch members and validate exist username
-            String memberPassword = authMemberRequest.getPassword();
+            // Fetch members and validate exist username
             String memberEmail = authMemberRequest.getEmail();
 
-            //Member.Attributes matchedMember =
-            AuthRequest request = new AuthRequest(memberEmail, memberPassword);
+            // Prepare request and headers for authentication
+            AuthRequest request = new AuthRequest(memberEmail, hashedPassword);
+            log.info("{}", memberEmail);
+            log.info("{}", hashedPassword);
+            HttpHeaders headers = createHeaders(request, memberEmail, hashedPassword);
 
-            var userValid = validateUser(request);
-            if (userValid) {
-                try {
-                    // auth in strapi with credential from member request
-                    token = auth.auth(request);
-                    log.info("{}", token);
-                    return token;
-                } catch (HttpClientErrorException e) {
-                    log.info("{}", e.getMessage());
+            // Fetch database member
+            List<Member.Attributes> members = fetch(headers);
+
+            // Validate database member
+            Member.Attributes matchedMember = members.stream()
+                    .filter(member -> member.getPassword().equals(hashedPassword))
+                    .findFirst()
+                    .orElseThrow(() -> new Exception("Incorrect password"));
+
+            // Validate user and authenticate in Strapi
+            if (matchedMember != null) {
+                // Authenticate in Strapi with credentials from member request
+                token = auth.auth(request);
+                log.info("{}", token);
+
+                // Get the body of the response and set the role of the member
+                AuthResponse authResponse = token.getBody();
+                log.info("{}", matchedMember.getRol());
+                if(authResponse != null){
+                    authResponse.setRole(matchedMember.getRol());
                 }
+                return ResponseEntity.ok(authResponse);
+            } else {
+                throw new Exception("User validation failed");
             }
-        } catch (NoSuchMethodException e) {
-            log.error("No matching member found: {}", e.getMessage());
+        } catch (Exception e) {
+            log.error("Error in validateMemberAccount: {}", e.getMessage());
+            return createErrorResponse(e.getMessage());
         }
-        return token;
     }
 
-    private boolean validateUser(AuthRequest authRequest) throws NoSuchMethodException {
-        var userValid = fetch(createHeaders(authRequest));
+    private ResponseEntity<AuthResponse> createErrorResponse(String message) {
+        AuthResponse errorResponse = new AuthResponse();
+        errorResponse.setErrorMessage("Authentication failed: " + message);
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(errorResponse);
+    }
+
+    private boolean validateUser(AuthRequest authRequest, String identifier, String password) throws NoSuchMethodException {
+        var userValid = fetch(createHeaders(authRequest, identifier, password));
         throw new NoSuchMethodException("Not implemented");
     }
 
-    private HttpHeaders createHeaders(AuthRequest auth) {
-        token = this.auth.auth(new AuthRequest(auth.getIdentifier(), auth.getPassword()));
+    private HttpHeaders createHeaders(AuthRequest auth, String identifier, String password) {
+        token = this.auth.auth(new AuthRequest(identifier, password));
         var headers = new HttpHeaders();
         headers.set("Authorization", "Bearer "+ token.getBody().getJwt());
         headers.set("Content-Type", "application/json");
