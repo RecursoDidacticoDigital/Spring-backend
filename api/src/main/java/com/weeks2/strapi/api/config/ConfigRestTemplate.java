@@ -3,6 +3,7 @@ package com.weeks2.strapi.api.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 public class ConfigRestTemplate {
@@ -12,5 +13,14 @@ public class ConfigRestTemplate {
         var rest = new RestTemplate();
        rest.getInterceptors().add(new Interceptor());
         return rest;
+    }
+
+    public void addCorsMappings(CorsRegistry registry){
+        registry.addMapping("/**")
+                // Replace with Flutter's app origin
+                .allowedOrigins(AppEndPointsSchool.FLUTTER_APP_PATH)
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }
