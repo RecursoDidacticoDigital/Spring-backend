@@ -33,7 +33,7 @@ class _UserListViewState extends State<UserListView> {
 
     final authRole = Provider.of<AuthApi>(context).role!;
     final user = Provider.of<AuthApi>(context).user!;
-    final List<Usuarios> usuarios = Provider.of<UsersApi>(context).usuarios;
+    final List<User> usuarios = Provider.of<UsersApi>(context).usuarios;
     // ignore: avoid_unnecessary_containers
     return Container(
       child: ListView(

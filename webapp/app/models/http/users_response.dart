@@ -1,66 +1,54 @@
+import 'package:meta/meta.dart';
 import 'dart:convert';
 
-class UsersResponse {
-    List<Usuarios> usuarios;
+class User {
+    int id;
+    String name;
+    String email;
+    String account;
+    String password;
+    String rol;
 
-    UsersResponse({
-        required this.usuarios,
+    User({
+        required this.id,
+        required this.name,
+        required this.email,
+        required this.account,
+        required this.password,
+        required this.rol,
     });
 
-    factory UsersResponse.fromJson(String str) => UsersResponse.fromMap(json.decode(str));
+    factory User.fromJson(String str) => User.fromMap(json.decode(str));
 
     String toRawJson() => json.encode(toMap());
 
-    factory UsersResponse.fromMap(Map<String, dynamic> json) => UsersResponse(
-        usuarios: List<Usuarios>.from(json["Usuario"].map((x) => Usuarios.fromMap(x))),
+    factory User.fromMap(Map<String, dynamic> json) => User(
+        id: json["id"],
+        name: json["name"],
+        email: json["email"],
+        account: json["account"],
+        password: json["password"],
+        rol: json["rol"],
     );
 
     Map<String, dynamic> toMap() => {
-        "Usuario": List<dynamic>.from(usuarios.map((x) => x.toMap())),
+        "id": id,
+        "name": name,
+        "email": email,
+        "account": account,
+        "password": password,
+        "rol": rol,
     };
 }
 
-class Usuarios {
-  int userId;
-  String userName;
-  String userAccount;
-  String userEmail;
-  String userPassword;
-  String userRole;
+class UsersResponse {
+    List<User> users;
 
-  Usuarios({
-      required this.userId,
-      required this.userName,
-      required this.userAccount,
-      required this.userEmail,
-      required this.userPassword,
-      required this.userRole,
-  });
+    UsersResponse({required this.users});
 
-  factory Usuarios.fromJson(String str) => Usuarios.fromMap(json.decode(str));
+    factory UsersResponse.fromJson(String str) => UsersResponse.fromList(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
-  factory Usuarios.fromMap(Map<String, dynamic> json) => Usuarios(
-      userId: json["id"],
-      userName: json["name"],
-      userAccount: json["account"],
-      userEmail: json["email"],
-      userPassword: json["password"],
-      userRole: json["user_rol"],
-  );
-
-  Map<String, dynamic> toMap() => {
-      "id": userId,
-      "name": userName,
-      "account": userAccount,
-      "email": userEmail,
-      "password": userPassword,
-      "rol": userRole,
-  };
-
-  @override
-  String toString(){
-    return 'Usuario: $userName';
-  }
+    factory UsersResponse.fromList(List<dynamic> list) => 
+        UsersResponse(users: list.map((x) => User.fromMap(x)).toList());
 }
+

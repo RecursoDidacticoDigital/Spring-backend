@@ -13,7 +13,7 @@ class ApiClient {
   static void configureDio(){
 
     // Base del url
-    _dio.options.baseUrl = 'http://localhost:8081/api';
+    _dio.options.baseUrl = 'http://localhost:8085/api';
 
     // Configurar headers
     _dio.options.headers = {
@@ -25,6 +25,7 @@ class ApiClient {
 
   static Future httpGet(String path) async{
     var headers = await _getHeaders();
+    print("HEADERS: $headers");
     try{
       final resp = await _dio.get(path, options: Options(headers: headers));
       return resp.data;
@@ -55,7 +56,7 @@ class ApiClient {
     var formData = json.encode(data);
 
     try{
-      final resp = await _dio.put(path, data: formData);
+      final resp = await _dio.put(path, data: formData, options: Options(headers: headers));
       return resp.data;
 
     } catch(e){

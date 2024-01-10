@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'api/ApiClient.dart';
 
+import 'api/classroomsApi.dart';
+import 'api/requestsApi.dart';
+import 'api/subjectsApi.dart';
 import 'router/router.dart';
 
 import 'package:provider/provider.dart';
@@ -40,6 +43,12 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(lazy: false, create: (_) => SideMenuProvider()),
 
         ChangeNotifierProvider(create: (_) => UsersApi()),
+
+        ChangeNotifierProvider(create: (_) => ClassroomsApi()),
+
+        ChangeNotifierProvider(create: (_) => SubjectsApi()),
+
+        ChangeNotifierProvider(create: (_) => RequestsApi()),
       ],
       child: const MyApp(),
     );

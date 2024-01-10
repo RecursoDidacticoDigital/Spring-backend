@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class UsersDTS extends DataTableSource {
 
-  final List<Usuarios> usuarios;
+  final List<User> usuarios;
   final BuildContext context;
 
   UsersDTS(this.context, {required this.usuarios});
@@ -16,7 +16,7 @@ class UsersDTS extends DataTableSource {
     final authRole = Provider.of<AuthApi>(context).role!;
     bool isAdmin;
     final usuario = usuarios[index];
-    if(usuario.userRole == 'SUPERADMIN' || usuario.userRole == 'ADMINISTRADOR'){
+    if(usuario.rol == 'SUPERADMIN' || usuario.rol == 'ADMINISTRADOR'){
       isAdmin = true;
     } else {
       isAdmin = false;
@@ -24,15 +24,15 @@ class UsersDTS extends DataTableSource {
     
     // Return only teachers on the list
     if(authRole == 'JEFE DE DEPARTAMENTO'){
-      while(usuario.userRole == 'profesor'){
+      while(usuario.rol == 'profesor'){
         return DataRow.byIndex(
           index: index,
           cells: [
-            DataCell(Text("${usuario.userId}")),
-            DataCell(Text(usuario.userName)),
-            DataCell(Text(usuario.userAccount)),
-            DataCell(Text(usuario.userEmail)),
-            DataCell(Text(usuario.userRole)),
+            DataCell(Text("${usuario.id}")),
+            DataCell(Text(usuario.name)),
+            DataCell(Text(usuario.account)),
+            DataCell(Text(usuario.email)),
+            DataCell(Text(usuario.rol)),
             DataCell(
               Row(
                 children: [
@@ -60,10 +60,10 @@ class UsersDTS extends DataTableSource {
         return DataRow.byIndex(
           index: index,
           cells: [
-            DataCell(Text("${usuario.userId}")),
-            DataCell(Text(usuario.userName)),
-            DataCell(Text(usuario.userAccount)),
-            DataCell(Text(usuario.userEmail)),
+            DataCell(Text("${usuario.id}")),
+            DataCell(Text(usuario.name)),
+            DataCell(Text(usuario.account)),
+            DataCell(Text(usuario.email)),
             DataCell(Text(authRole)),
             DataCell(
               Row(
@@ -107,11 +107,11 @@ class UsersDTS extends DataTableSource {
       return DataRow.byIndex(
         index: index,
         cells: [
-          DataCell(Text("${usuario.userId}")),
-          DataCell(Text(usuario.userName)),
-          DataCell(Text(usuario.userAccount)),
-          DataCell(Text(usuario.userEmail)),
-          DataCell(Text(usuario.userRole)),
+          DataCell(Text("${usuario.id}")),
+          DataCell(Text(usuario.name)),
+          DataCell(Text(usuario.account)),
+          DataCell(Text(usuario.email)),
+          DataCell(Text(usuario.rol)),
           DataCell(
             Row(
               children: [

@@ -96,6 +96,7 @@ class AuthApi
       final resp = await ApiClient.httpGet('/');
       final authResponse = AuthResponses.fromMap(resp);
       LocalStorages.prefs.setString('jwt', authResponse.jwt);
+      await LocalStorages.saveJwt(authResponse.jwt);
 
       user = authResponse.user;
       authStatus = AuthStatus.authenticated;

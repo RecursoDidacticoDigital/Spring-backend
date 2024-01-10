@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 
 
 class UsersApi extends ChangeNotifier {
-  List<Usuarios> usuarios = [];
+  List<User> usuarios = [];
 
   getUsers() async{
-    final resp = await ApiClient.httpGet('/members');
-    final usersResp = UsersResponse.fromMap(resp);
+    final List<dynamic> resp = await ApiClient.httpGet('/members');
+    //final usersResp = UsersResponse.fromJson(resp).users;
 
-    usuarios = [...usersResp.usuarios];
+    usuarios = resp.map((userJson) => User.fromMap(userJson)).toList();
 
     notifyListeners();
   }
