@@ -14,28 +14,33 @@ import java.util.List;
 public class RequestController {
     @Autowired
     private RequestService requestService;
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @GetMapping
     public List<Request.Attributes> get(@RequestHeader HttpHeaders headers) {
         return requestService.fetch(headers);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @GetMapping("/{id}")
     public List<Request.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return requestService.findById(headers,id);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         requestService.delete(headers,id);
         return ResponseEntity.ok("SUCCESS");
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @PutMapping("/{id}")
     public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Request.Attributes body){
         requestService.put(headers, id, body);
         return ResponseEntity.ok("SUCCESS");
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @PostMapping
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Request.Attributes body) {
         requestService.create(headers,body);

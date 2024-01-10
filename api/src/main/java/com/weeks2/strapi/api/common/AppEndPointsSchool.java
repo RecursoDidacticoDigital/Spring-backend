@@ -14,5 +14,5 @@ public class AppEndPointsSchool {
     public static final String TEACHER_PATH_ = SPRING_BASE_PATH_+"/teachers";
     public static final String TIMEBLOCK_PATH_ = SPRING_BASE_PATH_+"/timeblocks";
 
-    public static final String FLUTTER_APP_PATH = "http://localhost:60028";
+    public static final String FLUTTER_APP_PATH = "http://localhost:8086";
 }

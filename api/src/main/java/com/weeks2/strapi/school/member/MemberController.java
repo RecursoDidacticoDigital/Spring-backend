@@ -19,22 +19,26 @@ import java.util.List;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @GetMapping
     public List<Member.Attributes> get(@RequestHeader HttpHeaders headers) {
         return memberService.fetch(headers);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @GetMapping("/{id}")
     public List<Member.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return memberService.findById(headers,id);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         memberService.delete(headers,id);
         return ResponseEntity.ok("SUCCESS");
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @PutMapping("/{id}")
     public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Member.Attributes body){
         memberService.put(headers, id, body);

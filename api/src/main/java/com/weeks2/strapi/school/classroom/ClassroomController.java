@@ -14,33 +14,40 @@ import java.util.List;
 public class ClassroomController {
     @Autowired
     private ClassroomService classroomService;
+
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @GetMapping
     public List<Classroom.Attributes> get(@RequestHeader HttpHeaders headers) {
         return classroomService.fetch(headers);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @GetMapping("/{id}")
     public List<Classroom.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return classroomService.findById(headers,id);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @GetMapping("/{name}")
     public List<Classroom.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("name") String name) {
         return classroomService.findByName(headers,name);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         classroomService.delete(headers,id);
         return ResponseEntity.ok("SUCCESS");
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @PutMapping("/{id}")
     public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Classroom.Attributes body){
         classroomService.put(headers, id, body);
         return ResponseEntity.ok("SUCCESS");
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @PostMapping
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Classroom.Attributes body) {
         classroomService.create(headers,body);

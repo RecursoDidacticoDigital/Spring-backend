@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import com.weeks2.strapi.api.common.AppEndPointsSchool;
 
 @Configuration
 public class ConfigRestTemplate {

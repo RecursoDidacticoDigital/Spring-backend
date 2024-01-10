@@ -18,48 +18,36 @@ public class TimeblockController {
         this.timeblockService = timeblockService;
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @GetMapping
     public List<Timeblock.Attributes> get(@RequestHeader HttpHeaders headers) {
         return timeblockService.fetch(headers);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @GetMapping("/{id}")
     public List<Timeblock.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return timeblockService.findById(headers,id);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         timeblockService.delete(headers,id);
         return ResponseEntity.ok("SUCCESS");
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @PutMapping("/{id}")
     public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Timeblock.Attributes body){
         timeblockService.put(headers, id, body);
         return ResponseEntity.ok("SUCCESS"+body);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @PostMapping
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Timeblock.Attributes body) {
         log.info("{}",body);
-        // Id auto-incremental
-        // TODO: Poner esto en un método.
-        if(body.getId() == null){
-            int i = 1;
-            List<Timeblock.Attributes> timeblockExist = timeblockService.fetch(headers);
-            if(!timeblockExist.isEmpty()){
-                while(i <= timeblockExist.size()){
-                    if(i == timeblockExist.size()){
-                        body.setId(i+1);
-                        break;
-                    }
-                    i++;
-                }
-            } else {
-                body.setId(1);
-            }
-        }
         timeblockService.create(headers,body);
         return ResponseEntity.ok("SUCCESSFUL");
     }
