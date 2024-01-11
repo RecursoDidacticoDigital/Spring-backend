@@ -23,10 +23,14 @@ public class Request {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer classroom_id;
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        private String classroom;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer day_id;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer timeblock_id;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String subject;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private boolean approved;
     }
 }

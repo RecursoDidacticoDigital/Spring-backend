@@ -48,6 +48,12 @@ public class SubjectService {
                 .collect(Collectors.toList());
     }
 
+    public List<Subject.Attributes> findByName(HttpHeaders authHeader,String name) {
+        return fetch(authHeader).stream()
+                .filter(l-> l.getName().equals(name))
+                .collect(Collectors.toList());
+    }
+
     public void put(HttpHeaders headers, int id, Subject.Attributes body){
         var payload = getSubjectPayload(body);
         var response = rest.httpPutRequest(url+"/"+id, headers, payload, SubjectData.class).getData();

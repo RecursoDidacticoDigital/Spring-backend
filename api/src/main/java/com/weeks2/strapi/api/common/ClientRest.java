@@ -68,6 +68,4 @@ public class ClientRest {
         List<JsonNode> data;
         public DataList(){}
     }
-
-
 }

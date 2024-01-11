@@ -27,6 +27,12 @@ public class SubjectController {
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
+    @GetMapping("/{name}")
+    public List<Subject.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("name") String name) {
+        return subjectService.findByName(headers,name);
+    }
+
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         subjectService.delete(headers,id);
@@ -37,7 +43,7 @@ public class SubjectController {
     @PutMapping("/{id}")
     public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Subject.Attributes body){
         subjectService.put(headers, id, body);
-        return ResponseEntity.ok("SUCCESS");
+        return ResponseEntity.ok("SUCCESS"+body);
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)

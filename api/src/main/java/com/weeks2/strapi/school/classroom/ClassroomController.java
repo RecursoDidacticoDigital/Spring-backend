@@ -22,13 +22,13 @@ public class ClassroomController {
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public List<Classroom.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return classroomService.findById(headers,id);
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
-    @GetMapping("/{name}")
+    @GetMapping("/findByName/{name}")
     public List<Classroom.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("name") String name) {
         return classroomService.findByName(headers,name);
     }
