@@ -146,7 +146,7 @@
                 "type": "string"
             },
             "approved": {
-                "type": "bool" 
+                "type": "boolean" 
             }
         }
     }
