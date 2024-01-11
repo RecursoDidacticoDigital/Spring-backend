@@ -1,0 +1,150 @@
+{
+    "Member": {
+        "attributes": {
+            "name": {
+                "type": "string"
+            },
+            "email": {
+                "type": "string"
+            },
+            "account": {
+                "type": "string"
+            },
+            "password": {
+                "type": "string"
+            },
+            "rol": {
+                "type": "string"
+            }
+        }
+    },
+    "Subject": {
+        "attributes": {
+            "group": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "classroom": {
+                "type": "string"
+            },
+            "laboratory": {
+                "type": "string"
+            },
+            "teacher": {
+                "type": "string"
+            },
+            "dayid1": {
+                "type": "integer"
+            },
+            "dayid2": {
+                "type": "integer"
+            },
+            "dayid3": {
+                "type": "integer"
+            },
+            "dayid4": {
+                "type": "integer"
+            },
+            "dayid5": {
+                "type": "integer"
+            },
+            "timeblockid1": {
+                "type": "integer"
+            },
+            "timeblockid2": {
+                "type": "integer"
+            },
+            "timeblockid3": {
+                "type": "integer"
+            },
+            "timeblockid4": {
+                "type": "integer"
+            },
+            "timeblockid5": {
+                "type": "integer"
+            }
+        }
+    },
+    "Group": {
+        "attributes": {
+            "name": {
+                "type": "string"
+            },
+            "subjects": {
+                "type": "integer"
+            }
+        }
+    },
+    "Classroom": {
+        "attributes": {
+            "number": {
+                "type": "string"
+            },
+            "name": {
+                "type": "string"
+            },
+            "subjects": {
+                "type": "integer"
+            },
+            "building": {
+                "type": "integer"
+            }
+        }
+    },
+    "Day": {
+        "attributes": {
+            "name": {
+                "type": "string"
+            }
+        }
+    },
+    "Timeblock": {
+        "attributes": {
+            "start": {
+                "type": "datetime"
+            },
+            "end": {
+                "type": "datetime"
+            },
+            "startTime": {
+                "type": "time"
+            },
+            "endTime": {
+                "type": "time"
+            }
+        }
+    },
+    "Request": {
+        "attributes": {
+            "username": {
+                "type": "string"
+            },
+            "useraccount": {
+                "type": "string"
+            },
+            "department": {
+                "type": "string"
+            },
+            "classroomid": {
+                "type": "integer"
+            },
+            "classroom": {
+                "type": "string"
+            },
+            "dayid": {
+                "type": "integer"
+            },
+            "timeblockid": {
+                "type": "integer"
+            },
+            "subject": {
+                "type": "string"
+            },
+            "approved": {
+                "type": "bool"
+            }
+        }
+    }
+}
