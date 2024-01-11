@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.weeks2.strapi.school.day.Day;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
+@Slf4j
 @Service
 public class ClientRest {
 
@@ -34,7 +36,9 @@ public class ClientRest {
     }
 
     public <P, R> R  httpPostRequest(String url, HttpHeaders authHeader, P payload, Class<R> response) {
-        return restTemplate.exchange(url, HttpMethod.POST, new HttpEntity<>(payload,buildHeaders(authHeader)), response).getBody();
+        var payload_ = new HttpEntity<>(payload,buildHeaders(authHeader));
+        log.info("POST> Payload {}",payload_);
+        return restTemplate.exchange(url, HttpMethod.POST,payload_ , response).getBody();
     }
 
     private HttpHeaders buildHeaders(HttpHeaders authHeaders) {
