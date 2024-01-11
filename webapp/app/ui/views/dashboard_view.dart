@@ -1,20 +1,26 @@
+import 'dart:html';
+
 import '../../api/authApi.dart';
-//import '../../api/classroomsApi.dart';
 import '../cards/white_card.dart';
 import '../labels/custom_labels.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import '../../router/router.dart';
+import '../../services/navigation_service.dart';
+import '../shared/widgets/Image_widget.dart';
+import '../shared/widgets/classroom_item.dart';
 
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
 
+  void navigateTo(String routeName){
+    NavigationService.navigateTo(routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
-    const double classroomWidth = 7;
-    const double classroomHeight = 5;
-    
+    final String imageUrl = "https://drive.google.com/uc?export=view&id=1vIHkMaFAXQRNBFSeTRrTr8gxcdoej6RF";
     final authRole = Provider.of<AuthApi>(context).role!;
     final user = Provider.of<AuthApi>(context).user!;
     //final salones = Provider.of<ClassroomsApi>(context).salones;
@@ -33,31 +39,16 @@ class DashboardView extends StatelessWidget {
           const SizedBox(height: 20),
           
           InteractiveViewer(
-            boundaryMargin: const EdgeInsets.all(20.0),
-            minScale: 0.1,
-            maxScale: 5,
+            boundaryMargin: EdgeInsets.all(20.0),
+            minScale: 0.05,
+            maxScale: 0.1,
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[
-                SvgPicture.asset(
-                  'ESCOMAP_Planta_baja-Model.svg'
+                //ImageWidget(imageUrl: imageUrl),
+                Image.asset(
+                  'ESCOMAP_VistaGeneral.png'
                 ),
-                // Classrooms
-                Positioned(
-                  left: 5,
-                  top: 5,
-                  child: InkWell(
-                    onTap: (){},
-                    child: Container(
-                      width: classroomWidth,
-                      height: classroomHeight,
-                      color: Colors.blue,
-                      child: Icon(
-                        Icons.circle_notifications_outlined, color: Colors.red
-                      ),
-                    )
-                  )
-                )
               ]
             ),
           ),

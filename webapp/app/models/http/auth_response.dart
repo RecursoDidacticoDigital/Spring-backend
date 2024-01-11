@@ -1,6 +1,4 @@
-import 'package:meta/meta.dart';
 import 'dart:convert';
-// TODO: Terminar de adaptar a la api
 class AuthResponses {
     String jwt;
     String role;

@@ -15,6 +15,10 @@ class Flurorouter{
   // Admin
   static String requestlistRoute = '/dashboard/requestlist';
   static String userlistRoute = '/dashboard/userlist';
+  
+  // Reservation
+  static String classroomScheduleRoute = '/dashboard/classroomSchedulelist';
+  static String classroomReserveFormRoute = 'dashboard/classroomReserveForm';
 
   // Dashboard
   static String dashboardRoute = '/dashboard';
@@ -23,7 +27,6 @@ class Flurorouter{
   static String ed2Route = '/dashboard/ed2';
   static String ed3Route = '/dashboard/ed3';
   static String ed4Route = '/dashboard/ed4';
-  static String ed5Route = '/dashboard/ed5';
   static String edlabRoute = '/dashboard/edlab';
   static String blankRoute = '/dashboard/blank';
 
@@ -38,6 +41,10 @@ class Flurorouter{
     router.define(requestlistRoute, handler: DashboardHandlers.requestlist, transitionType: TransitionType.none);
     router.define(userlistRoute, handler: DashboardHandlers.userlist, transitionType: TransitionType.none);
 
+    // Reservation
+    router.define(classroomScheduleRoute, handler: DashboardHandlers.classroomSchedule, transitionType: TransitionType.none);
+    router.define(classroomReserveFormRoute, handler: DashboardHandlers.reserveForm, transitionType: TransitionType.none);
+
     // Dashboard
     router.define(dashboardRoute, handler: DashboardHandlers.dashboard, transitionType: TransitionType.none);
     router.define(govRoute, handler: DashboardHandlers.gov, transitionType: TransitionType.none);
@@ -45,7 +52,6 @@ class Flurorouter{
     router.define(ed2Route, handler: DashboardHandlers.ed2, transitionType: TransitionType.none);
     router.define(ed3Route, handler: DashboardHandlers.ed3, transitionType: TransitionType.none);
     router.define(ed4Route, handler: DashboardHandlers.ed4, transitionType: TransitionType.none);
-    router.define(ed5Route, handler: DashboardHandlers.ed5, transitionType: TransitionType.none);
     router.define(edlabRoute, handler: DashboardHandlers.edlab, transitionType: TransitionType.none);
     router.define(blankRoute, handler: DashboardHandlers.blank, transitionType: TransitionType.none);
 

@@ -1,11 +1,12 @@
 import '../providers/sidemenu_provider.dart';
+import '../ui/views/classroom_schedule_view.dart';
+import '../ui/views/reservation_view.dart';
 import 'router.dart';
 import '../ui/views/blank_view.dart';
 import '../ui/views/ed1_view.dart';
 import '../ui/views/ed2_view.dart';
 import '../ui/views/ed3_view.dart';
 import '../ui/views/ed4_view.dart';
-import '../ui/views/ed5_view.dart';
 import '../ui/views/edlab_view.dart';
 import '../ui/views/gov_view.dart';
 import '../ui/views/login_view.dart';
@@ -18,7 +19,6 @@ import '../api/authApi.dart';
 import '../ui/views/dashboard_view.dart';
 
 class DashboardHandlers {
-
   static Handler requestlist = Handler(
     handlerFunc: ( context, params ) {
 
@@ -139,21 +139,6 @@ class DashboardHandlers {
     }
   );
 
-  static Handler ed5 = Handler(
-    handlerFunc: ( context, params ) {
-
-      final authProvider = Provider.of<AuthApi>(context!);
-      Provider.of<SideMenuProvider>(context, listen: false)
-        .setCurrentPageUrl(Flurorouter.ed5Route);
-
-      if ( authProvider.authStatus == AuthStatus.authenticated ) {
-        return const Ed5View();
-      } else {
-        return const LoginView();
-      }
-    }
-  );
-
   static Handler edlab = Handler(
     handlerFunc: ( context, params ) {
 
@@ -163,6 +148,36 @@ class DashboardHandlers {
 
       if ( authProvider.authStatus == AuthStatus.authenticated ) {
         return const EdlabView();
+      } else {
+        return const LoginView();
+      }
+    }
+  );
+
+  static Handler reserveForm = Handler(
+    handlerFunc: ( context, params ) {
+
+      final authProvider = Provider.of<AuthApi>(context!);
+      Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.classroomReserveFormRoute);
+
+      if ( authProvider.authStatus == AuthStatus.authenticated ) {
+        return ReservationView();
+      } else {
+        return const LoginView();
+      }
+    }
+  );
+
+  static Handler classroomSchedule = Handler(
+    handlerFunc: ( context, params ) {
+
+      final authProvider = Provider.of<AuthApi>(context!);
+      Provider.of<SideMenuProvider>(context, listen: false)
+        .setCurrentPageUrl(Flurorouter.classroomScheduleRoute);
+
+      if ( authProvider.authStatus == AuthStatus.authenticated ) {
+        return const ClassroomScheduleView();
       } else {
         return const LoginView();
       }

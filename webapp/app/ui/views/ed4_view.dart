@@ -4,10 +4,16 @@ import '../labels/custom_labels.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
+import '../../router/router.dart';
+import '../../services/navigation_service.dart';
+import '../shared/widgets/classroom_item.dart';
 
 class Ed4View extends StatelessWidget {
   const Ed4View({super.key});
 
+  void navigateTo(String routeName){
+    NavigationService.navigateTo(routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,22 +34,29 @@ class Ed4View extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          SizedBox(
-            height: 700,
-            width: double.infinity,
-            child: Center(
-              child: InteractiveViewer(
-                maxScale: 3.0,
-                minScale: 0.01,
-                child: SvgPicture.asset(
-                  'Salon1001.svg',
-                  semanticsLabel: 'Salón 4001',
-                  height: 700,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  
+          InteractiveViewer(
+            boundaryMargin: EdgeInsets.all(20.0),
+            minScale: 0.1,
+            maxScale: 5.0,
+            child: Stack(
+              alignment: Alignment.center,
+              children: <Widget>[
+                Image.asset(
+                  'ESCOMAP_Ed4_PB.png'
                 ),
-              ),
+                /*SvgPicture.network(
+                  'https://drive.google.com/uc?export=view&id=1vjX3idej4Ntb-7N3bgBQ0pTMjxNpkbQ_'
+                ),*/
+                // Classrooms
+                Positioned(
+                  left: 5.0,
+                  top: 5.0,
+                  child: ClassroomItem(
+                    label: 'Classroom 1001',
+                    onPressed: () => navigateTo(Flurorouter.classroomScheduleRoute),
+                  ),
+                )
+              ]
             ),
           ),
         ],

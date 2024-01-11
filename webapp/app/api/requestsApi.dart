@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 
 
 class RequestsApi extends ChangeNotifier {
-  List<Solicitudes> solicitudes = [];
+  List<Request> solicitudes = [];
 
   getRequests() async{
-    final resp = await ApiClient.httpGet('/requests');
-    final requestsResp = RequestsResponse.fromMap(resp);
-
-    solicitudes = [...requestsResp.solicitudes];
+    final List<dynamic> resp = await ApiClient.httpGet('/requests');
+    
+    solicitudes = resp.map((requestJson) => Request.fromMap(requestJson)).toList();
 
     notifyListeners();
   }

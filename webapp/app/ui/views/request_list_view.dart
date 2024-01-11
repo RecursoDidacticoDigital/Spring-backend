@@ -1,7 +1,8 @@
-import '../../datatables/users_datasource.dart';
-import '../../models/http/users_response.dart';
+import '../../api/requestsApi.dart';
+import '../../api/subjectsApi.dart';
+import '../../datatables/requests_datasource.dart';
+import '../../models/http/requests_response.dart';
 import '../../api/authApi.dart';
-import '../../api/usersApi.dart';
 import '../cards/white_card.dart';
 import '../labels/custom_labels.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _RequestListViewState extends State<RequestListView> {
 
     final authRole = Provider.of<AuthApi>(context).role!;
     final user = Provider.of<AuthApi>(context).user!;
-    final List<User> usuarios = Provider.of<UsersApi>(context).usuarios;
+    final List<Request> solicitudes = Provider.of<RequestsApi>(context).solicitudes;
     // ignore: avoid_unnecessary_containers
     return Container(
       child: ListView(
@@ -41,14 +42,17 @@ class _RequestListViewState extends State<RequestListView> {
 
           PaginatedDataTable(
             columns: const [
-              DataColumn(label: Text("ID del usuario")),
-              DataColumn(label: Text("Nombre")),
-              DataColumn(label: Text("Número de cuenta")),
-              DataColumn(label: Text("Correo")),
-              DataColumn(label: Text("Rol")),
-              DataColumn(label: Text("Acciones")),
+              DataColumn(label: Text("ID de solicitud")),
+              DataColumn(label: Text("Nombre del solicitante")),
+              DataColumn(label: Text("Número de empleado")),
+              DataColumn(label: Text("Departamento")),
+              DataColumn(label: Text("Salón")),
+              DataColumn(label: Text("Actividad")),
+              DataColumn(label: Text("Día")),
+              DataColumn(label: Text("Horario")),
+              DataColumn(label: Text("Estado de la solicitud"))
             ], 
-            source: UsersDTS(usuarios: usuarios, context),
+            source: RequestsDTS(solicitudes: solicitudes, context),
             header: const Text("Solicitudes de reserva"),
           ),
         ],

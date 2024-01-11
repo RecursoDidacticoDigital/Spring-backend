@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 
 
 class SubjectsApi extends ChangeNotifier {
-  List<Materias> materias = [];
+  List<Subject> materias = [];
 
   getSubjects() async{
-    final resp = await ApiClient.httpGet('/subjects');
-    final subjectsResp = SubjectsResponse.fromMap(resp);
+    final List<dynamic> resp = await ApiClient.httpGet('/subjects');
 
-    materias = [...subjectsResp.materias];
+    materias = resp.map((subjectJson) => Subject.fromMap(subjectJson)).toList();
 
     notifyListeners();
   }

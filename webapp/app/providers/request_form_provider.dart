@@ -12,6 +12,7 @@ class RequestFormProvider extends ChangeNotifier {
   String department = '';
   String subject = '';
   int classroomId = -1;
+  String classroom = '';
   int dayId = -1;
   int timeblockId = -1;
 

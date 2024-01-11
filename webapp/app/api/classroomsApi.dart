@@ -4,32 +4,28 @@ import 'package:flutter/material.dart';
 
 
 class ClassroomsApi extends ChangeNotifier {
-  List<Salones> salones = [];
-  Salon? salon;
+  List<Classroom> salones = [];
 
   getClassrooms() async{
-    final resp = await ApiClient.httpGet('/classrooms');
-    final classroomsResp = ClassroomsResponses.fromMap(resp);
+    final List<dynamic> resp = await ApiClient.httpGet('/classrooms');
 
-    salones = [...classroomsResp.salones];
+    salones = resp.map((classroomJson) => Classroom.fromMap(classroomJson)).toList();
 
     notifyListeners();
   }
 
   getClassroomByName(String name) async{
-    final resp = await ApiClient.httpGet('/classrooms/$name');
-    final classroomResp = ClassroomsResponses.fromMap(resp);
-
-    salones = classroomResp.salones;
+    final List<dynamic> resp = await ApiClient.httpGet('/classrooms/findByName/$name');
+    
+    salones = resp.map((classroomJson) => Classroom.fromMap(classroomJson)).toList();
 
     notifyListeners();
   }
 
   getClassroomById(int id) async{
-    final resp = await ApiClient.httpGet('/classrooms/$id');
-    final classroomResp = ClassroomsResponses.fromMap(resp);
-
-    salones = classroomResp.salones;
+    final List<dynamic> resp = await ApiClient.httpGet('/classrooms/findById/$id');
+    
+    salones = resp.map((classroomJson) => Classroom.fromMap(classroomJson)).toList();
 
     notifyListeners();
   }

@@ -1,6 +1,4 @@
 // ignore_for_file: avoid_print
-
-
 import 'package:provider/provider.dart';
 import '../api/classroomsApi.dart';
 import '../models/http/classrooms_response.dart';
@@ -9,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class RequestsDTS extends DataTableSource{
   
-  final List<Solicitudes> solicitudes;
+  final List<Request> solicitudes;
   final BuildContext context;
 
   RequestsDTS(this.context, {required this.solicitudes});
@@ -19,8 +17,8 @@ class RequestsDTS extends DataTableSource{
     // Getting all the necessary data
     final classroomProvider = Provider.of<ClassroomsApi>(context);
     final solicitud = solicitudes[index];
-    List<Salones> salones = classroomProvider.getClassroomById(solicitud.classroomId);
-    Salones salon = salones[0];
+    List<Classroom> salones = classroomProvider.getClassroomById(solicitud.classroomId);
+    Classroom salon = salones[0];
 
     String startTime = getTimeblockStart(solicitud.timeblock);
     String endTime = getTimeblockEnd(solicitud.timeblock);
@@ -28,14 +26,15 @@ class RequestsDTS extends DataTableSource{
     return DataRow.byIndex(
       index: index,
       cells: [
-        DataCell( Text(solicitud.memberName) ),
-        DataCell( Text(solicitud.memberAccount) ),
-        DataCell( Text(solicitud.department) ),
-        DataCell( Text(salon.name) ),
-        DataCell( Text(solicitud.subject) ),
-        DataCell( Text(solicitud.day.toString()) ),
-        DataCell( Text("$startTime-$endTime") ),
-        DataCell( Text("Estado: ${solicitud.approved.toString()}") ),
+        DataCell( Text(/*solicitud.id.toString()*/"1") ),
+        DataCell( Text(/*solicitud.memberName*/"Norman") ),
+        DataCell( Text(/*solicitud.memberAccount*/"2018999999") ),
+        DataCell( Text(/*solicitud.department*/"Departamento de Sistemas") ),
+        DataCell( Text(/*salon.name*/"1006") ),
+        DataCell( Text(/*solicitud.subject*/"TTII") ),
+        DataCell( Text(/*"$getDay(solicitud.day)"*/"Lunes") ),
+        DataCell( Text(/*"$startTime-$endTime"*/"12:00:00-13:30:00") ),
+        DataCell( Text(/*"Estado: ${solicitud.approved.toString()}"*/"false") ),
         DataCell(
           Row(
             children: [
@@ -59,7 +58,7 @@ class RequestsDTS extends DataTableSource{
 
   @override
 
-  int get rowCount => solicitudes.length;
+  int get rowCount => 5;//solicitudes.length;
 
   @override
 
@@ -91,6 +90,17 @@ class RequestsDTS extends DataTableSource{
       case 8: return "20:00:00";
       case 9: return "21:30:00";
       default: return "        ";
+    }
+  }
+
+  String getDay(int dayId){
+    switch(dayId){
+      case 1: return "Lunes";
+      case 2: return "Martes";
+      case 3: return "Miércoles";
+      case 4: return "Jueves";
+      case 5: return "Viernes";
+      default: return "      ";
     }
   }
 }

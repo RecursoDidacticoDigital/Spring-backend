@@ -37,7 +37,6 @@ class _DashboardLayoutState extends State<DashboardLayout> with SingleTickerProv
   Widget build(BuildContext context) {
 
     final authRole = Provider.of<AuthApi>(context).role!;
-    final user = Provider.of<AuthApi>(context).user!;
     final size = MediaQuery.of(context).size;
     bool isAdmin;
     if(authRole == 'SUPERADMIN' || authRole == 'ADMINISTRADOR' || authRole == 'JEFE DE DEPARTAMENTO'){

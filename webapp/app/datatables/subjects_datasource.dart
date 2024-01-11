@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class SubjectsDTS extends DataTableSource{
   
-  final List<Materias> materias;
+  final List<Subject> materias;
 
   SubjectsDTS({required this.materias});
 

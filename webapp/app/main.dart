@@ -5,6 +5,7 @@ import 'api/ApiClient.dart';
 import 'api/classroomsApi.dart';
 import 'api/requestsApi.dart';
 import 'api/subjectsApi.dart';
+import 'providers/classroom_provider.dart';
 import 'router/router.dart';
 
 import 'package:provider/provider.dart';
@@ -49,6 +50,8 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => SubjectsApi()),
 
         ChangeNotifierProvider(create: (_) => RequestsApi()),
+
+        Provider<ClassroomProvider>(create: (_) => ClassroomProvider()),
       ],
       child: const MyApp(),
     );

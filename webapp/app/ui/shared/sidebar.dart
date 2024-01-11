@@ -62,10 +62,6 @@ class Sidebar extends StatelessWidget {
             text: 'Edificio 4', icon: Icons.looks_4_outlined, 
             onPressed: () => navigateTo(Flurorouter.ed4Route)
           ),
-          MenuItem(isActive: sideMenuProvider.currentPage == Flurorouter.ed5Route,
-            text: 'Edificio 5', icon: Icons.looks_5_outlined, 
-            onPressed: () => navigateTo(Flurorouter.ed5Route)
-          ),
           MenuItem(isActive: sideMenuProvider.currentPage == Flurorouter.edlabRoute,
             text: 'Edificio de Laboratorios', icon: Icons.electric_bolt_outlined, 
             onPressed: () => navigateTo(Flurorouter.edlabRoute)

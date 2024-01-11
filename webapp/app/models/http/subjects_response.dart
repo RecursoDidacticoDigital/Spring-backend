@@ -1,26 +1,6 @@
 import 'dart:convert';
 
-class SubjectsResponse {
-    List<Materias> materias;
-
-    SubjectsResponse({
-        required this.materias,
-    });
-
-    factory SubjectsResponse.fromJson(String str) => SubjectsResponse.fromMap(json.decode(str));
-
-    String toRawJson() => json.encode(toMap());
-
-    factory SubjectsResponse.fromMap(Map<String, dynamic> json) => SubjectsResponse(
-        materias: List<Materias>.from(json["subject"].map((x) => Materias.fromMap(x))),
-    );
-
-    Map<String, dynamic> toMap() => {
-        "subject": List<dynamic>.from(materias.map((x) => x.toMap())),
-    };
-}
-
-class Materias {
+class Subject {
     int id;
     String? group;
     String name;
@@ -38,7 +18,7 @@ class Materias {
     int timeblockId4;
     int timeblockId5;
 
-    Materias({
+    Subject({
         required this.id,
         this.group,
         required this.name,
@@ -57,11 +37,11 @@ class Materias {
         required this.timeblockId5,
     });
 
-    factory Materias.fromJson(String str) => Materias.fromMap(json.decode(str));
+    factory Subject.fromJson(String str) => Subject.fromMap(json.decode(str));
 
     String toRawJson() => json.encode(toMap());
 
-    factory Materias.fromMap(Map<String, dynamic> json) => Materias(
+    factory Subject.fromMap(Map<String, dynamic> json) => Subject(
         id: json["id"],
         group: json["group"],
         name: json["name"],
@@ -98,9 +78,16 @@ class Materias {
         "timeblock_id4": timeblockId4,
         "timeblock_id5": timeblockId5,
     };
-
-    @override
-    String toString(){
-    return 'Materia: $name';
-  }
 }
+
+class SubjectsResponse {
+    List<Subject> subjects;
+
+    SubjectsResponse({required this.subjects});
+
+    factory SubjectsResponse.fromJson(String str) => SubjectsResponse.fromList(json.decode(str));
+
+    factory SubjectsResponse.fromList(List<dynamic> list) => 
+        SubjectsResponse(subjects: list.map((x) => Subject.fromMap(x)).toList());
+}
+

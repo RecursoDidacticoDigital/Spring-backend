@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class CustomIconButton extends StatelessWidget {
@@ -18,19 +20,24 @@ class CustomIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all(const StadiumBorder()),
-        backgroundColor: MaterialStateProperty.all(color.withOpacity(0.5)),
-        overlayColor: MaterialStateProperty.all(color.withOpacity(0.3)),
+    return Container(
+      constraints: const BoxConstraints(
+        maxWidth: 200
       ),
-      onPressed: () => onPressed(),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.white),
-          Text(text, style: const TextStyle(color: Colors.white),
-          )
-        ],
+      child: OutlinedButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(const StadiumBorder()),
+          backgroundColor: MaterialStateProperty.all(color.withOpacity(0.5)),
+          overlayColor: MaterialStateProperty.all(color.withOpacity(0.3)),
+        ),
+        onPressed: () => onPressed(),
+        child: Row(
+          children: [
+            Icon(icon, color: Colors.white),
+            Text(text, style: const TextStyle(color: Colors.white),
+            )
+          ],
+        )
       )
     );
   }

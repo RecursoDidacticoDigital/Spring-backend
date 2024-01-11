@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class ClassroomsDTS extends DataTableSource {
 
-  final List<Salones> salones;
+  final List<Classroom> salones;
 
   ClassroomsDTS({required this.salones});
 
