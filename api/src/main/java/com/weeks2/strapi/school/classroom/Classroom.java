@@ -24,5 +24,7 @@ public class Classroom {
         private Integer subjects;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private Integer building;
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        private Integer queue;
     }
 }
