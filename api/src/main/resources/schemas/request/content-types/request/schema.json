@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "requests",
+  "info": {
+    "singularName": "request",
+    "pluralName": "requests",
+    "displayName": "Request"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+  "username": {
+        "type": "string"
+    },
+    "useraccount": {
+        "type": "string"
+    },
+    "department": {
+        "type": "string"
+    },
+    "classroomid": {
+        "type": "integer"
+    },
+    "classroom": {
+        "type": "string"
+    },
+    "dayid": {
+        "type": "integer"
+    },
+    "timeblockid": {
+        "type": "integer"
+    },
+    "subject": {
+        "type": "string"
+    },
+    "approved": {
+        "type": "integer" 
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "timeblocks",
+  "info": {
+    "singularName": "timeblock",
+    "pluralName": "timeblocks",
+    "displayName": "Timeblock"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+"start": {
+    "type": "datetime"
+},
+"startTime": {
+  "type": "time"
+},
+"endTime": {
+    "type": "time"
+}
+  }
+}

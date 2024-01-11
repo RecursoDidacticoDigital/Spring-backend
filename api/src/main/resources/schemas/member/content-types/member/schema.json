@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "members",
+  "info": {
+    "singularName": "member",
+    "pluralName": "members",
+    "displayName": "Member"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+  "email": {
+      "type": "string"
+  },
+  "account": {
+      "type": "string"
+  },
+  "password": {
+      "type": "string"
+  },
+  "rol": {
+      "type": "string"
+  }
+  }
+}

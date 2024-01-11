@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "classrooms",
+  "info": {
+    "singularName": "classroom",
+    "pluralName": "classrooms",
+    "displayName": "Classroom",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "studentToken": {
+      "type": "string"
+    },
+    "hourCount": {
+      "type": "integer"
+    },
+    "verified": {
+      "type": "boolean"
+    },
+  "number": {
+      "type": "string"
+  },
+  "name": {
+      "type": "string"
+  },
+  "subjects": {
+      "type": "integer"
+  },
+  "building": {
+      "type": "integer"
+  },
+  "queue": {
+      "type": "integer" 
+  }
+  }
+}
