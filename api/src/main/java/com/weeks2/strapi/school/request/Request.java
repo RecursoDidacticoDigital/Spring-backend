@@ -30,7 +30,6 @@ public class Request {
         private Integer timeblock_id;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String subject;
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        private boolean approved;
+        private int approved;
     }
 }
