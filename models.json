@@ -90,6 +90,9 @@
             },
             "building": {
                 "type": "integer"
+            },
+            "queue": {
+                "type": "integer"
             }
         }
     },
