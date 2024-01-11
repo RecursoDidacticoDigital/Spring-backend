@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.weeks2</groupId>
-	<artifactId>strapi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>strapi-api</artifactId>
+	<version>1</version>
 	<name>strapi</name>
 	<description>Backend consume Strapi API</description>
 	<properties>
@@ -40,13 +40,16 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+					<mainClass>com.weeks2.strapi.StrapiApplication</mainClass>
+					<layout>JAR</layout>
 				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

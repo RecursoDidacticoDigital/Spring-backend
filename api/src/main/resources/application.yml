@@ -14,3 +14,6 @@ strapi:
   subject: ${strapi.host}/subjects
   classroom: ${strapi.host}/classrooms
   request: ${strapi.host}/requests
+
+deploy:
+  strapi-api: http://142.44.243.204:8085
