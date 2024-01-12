@@ -21,15 +21,15 @@ public class SubjectController {
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
-    @GetMapping("/{id}")
+    @GetMapping("/findById/{id}")
     public List<Subject.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         return subjectService.findById(headers,id);
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
-    @GetMapping("/{name}")
-    public List<Subject.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("name") String name) {
-        return subjectService.findByName(headers,name);
+    @GetMapping("/findByString/{string}")
+    public List<Subject.Attributes> get(@RequestHeader HttpHeaders headers, @PathVariable("string") String string) {
+        return subjectService.findByString(headers,string);
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)

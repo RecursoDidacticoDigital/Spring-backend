@@ -24,24 +24,24 @@ public class Subject {
         private String laboratory;
         private String teacher;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer day_id1;
+        private Integer dayid1;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer day_id2;
+        private Integer dayid2;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer day_id3;
+        private Integer dayid3;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer day_id4;
+        private Integer dayid4;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer day_id5;
+        private Integer dayid5;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer timeblock_id1;
+        private Integer timeblockid1;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer timeblock_id2;
+        private Integer timeblockid2;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer timeblock_id3;
+        private Integer timeblockid3;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer timeblock_id4;
+        private Integer timeblockid4;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer timeblock_id5;
+        private Integer timeblockid5;
     }
 }

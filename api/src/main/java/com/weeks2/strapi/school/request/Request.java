@@ -15,19 +15,19 @@ public class Request {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         Integer id;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String member_name;
+        private String username;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private String member_account;
+        private String useraccount;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String department;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer classroom_id;
+        private Integer classroomid;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String classroom;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer day_id;
+        private Integer dayid;
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        private Integer timeblock_id;
+        private Integer timeblockid;
         @JsonInclude(JsonInclude.Include.NON_NULL)
         private String subject;
         private int approved;

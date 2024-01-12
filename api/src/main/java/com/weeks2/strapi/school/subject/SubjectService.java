@@ -48,9 +48,9 @@ public class SubjectService {
                 .collect(Collectors.toList());
     }
 
-    public List<Subject.Attributes> findByName(HttpHeaders authHeader,String name) {
+    public List<Subject.Attributes> findByString(HttpHeaders authHeader,String string) {
         return fetch(authHeader).stream()
-                .filter(l-> l.getName().equals(name))
+                .filter(l-> l.getClassroom().equals(string))
                 .collect(Collectors.toList());
     }
 
