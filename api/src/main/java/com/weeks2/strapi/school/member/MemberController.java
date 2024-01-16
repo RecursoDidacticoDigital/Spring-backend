@@ -45,6 +45,13 @@ public class MemberController {
         return ResponseEntity.ok("SUCCESS"+body);
     }
 
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> patch(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Member.Attributes body){
+        memberService.patch(headers, id, body);
+        return ResponseEntity.ok("SUCCESS"+body);
+    }
+
     @PostMapping
     public ResponseEntity<String> create(@RequestBody Member.Attributes body) {
         log.info("{}",body);

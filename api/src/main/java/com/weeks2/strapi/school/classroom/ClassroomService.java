@@ -62,6 +62,12 @@ public class ClassroomService {
         log.info("{}",response);
     }
 
+    public void patch(HttpHeaders headers, int id, Classroom.Attributes body){
+        var payload = getClassroomPayload(body);
+        var response = rest.httpPatchRequest(url+"/"+id, headers, payload, ClassroomData.class).getData();
+        log.info("{}",response);
+    }
+
     private static ClassroomPayload getClassroomPayload(Classroom.Attributes data) {
         var payload = new ClassroomPayload();
         payload.setData(data);

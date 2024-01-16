@@ -27,9 +27,11 @@ public class RequestController {
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
-        requestService.delete(headers,id);
+        log.info("id: {}", id);
+        log.info("headers: {}", headers);
+        requestService.delete(id);
         return ResponseEntity.ok("SUCCESS");
     }
 
@@ -37,6 +39,13 @@ public class RequestController {
     @PutMapping("/{id}")
     public ResponseEntity<String> put(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Request.Attributes body){
         requestService.put(headers, id, body);
+        return ResponseEntity.ok("SUCCESS");
+    }
+
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> patch(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Request.Attributes body){
+        requestService.patch(headers, id, body);
         return ResponseEntity.ok("SUCCESS");
     }
 

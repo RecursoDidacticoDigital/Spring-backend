@@ -35,6 +35,10 @@ public class ClientRest {
         restTemplate.delete(url, HttpMethod.DELETE, new HttpEntity<>(buildHeaders(authHeader)));
     }
 
+    public void httpDeleteRequest2(String url){
+        restTemplate.delete(url, HttpMethod.DELETE);
+    }
+
     public <P, R> R  httpPostRequest(String url, HttpHeaders authHeader, P payload, Class<R> response) {
         var payload_ = new HttpEntity<>(payload,buildHeaders(authHeader));
         log.info("POST> Payload {}",payload_);
@@ -59,7 +63,7 @@ public class ClientRest {
     /**
      * Update partial payload
      */
-    public <P, R> R  httpPathRequest(String url, HttpHeaders authHeader, P payload, Class<R> response) {
+    public <P, R> R  httpPatchRequest(String url, HttpHeaders authHeader, P payload, Class<R> response) {
         return restTemplate.exchange(url, HttpMethod.PATCH, new HttpEntity<>(payload,buildHeaders(authHeader)), response).getBody();
     }
 

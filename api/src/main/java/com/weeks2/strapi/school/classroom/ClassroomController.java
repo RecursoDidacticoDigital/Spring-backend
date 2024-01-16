@@ -48,6 +48,13 @@ public class ClassroomController {
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> patch(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Classroom.Attributes body){
+        classroomService.patch(headers, id, body);
+        return ResponseEntity.ok("SUCCESS");
+    }
+
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @PostMapping
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Classroom.Attributes body) {
         classroomService.create(headers,body);

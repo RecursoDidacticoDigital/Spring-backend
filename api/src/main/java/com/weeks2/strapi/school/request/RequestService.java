@@ -38,8 +38,8 @@ public class RequestService {
         log.info("response {}",response);
     }
 
-    public void delete(HttpHeaders headers, int id){
-        rest.httpDeleteRequest(url+"/"+id, headers);
+    public void delete(int id){
+        rest.httpDeleteRequest2(url+"/"+id);
     }
 
     public List<Request.Attributes> findById(HttpHeaders authHeader,int id) {
@@ -51,6 +51,12 @@ public class RequestService {
     public void put(HttpHeaders headers, int id, Request.Attributes body){
         var payload = getRequestPayload(body);
         var response = rest.httpPutRequest(url+"/"+id, headers, payload, RequestData.class).getData();
+        log.info("{}",response);
+    }
+
+    public void patch(HttpHeaders headers, int id, Request.Attributes body){
+        var payload = getRequestPayload(body);
+        var response = rest.httpPatchRequest(url+"/"+id, headers, payload, RequestData.class).getData();
         log.info("{}",response);
     }
 

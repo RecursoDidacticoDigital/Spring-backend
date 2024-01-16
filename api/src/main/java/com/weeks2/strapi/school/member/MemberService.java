@@ -13,6 +13,11 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -192,6 +197,12 @@ public class MemberService {
         log.info("{}",response);
     }
 
+    public void patch(HttpHeaders headers, int id, Member.Attributes body){
+        var payload = getMemberPayload(body);
+        var response = rest.httpPatchRequest(url+"/"+id, headers, payload, MemberData.class).getData();
+        log.info("{}",response);
+    }
+
     private static MemberPayload getMemberPayload(Member.Attributes data) {
         var payload = new MemberPayload();
         payload.setData(data);
@@ -206,5 +217,29 @@ public class MemberService {
         if(body.getAccount().length() == 6){
             body.setRol("TEACHER");
         }
+    }
+
+    public boolean validateToken(String token) {
+        return true;
+        /*try {
+            // Specify the algorithm used for signing the token (must match the one used for issuing the token)
+            Algorithm algorithm = Algorithm.HMAC256("token"); // Replace "secret" with your actual secret key
+
+            // Create a JWTVerifier
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("your-issuer") // Optional: Validate the issuer
+                    // Add more constraints if needed
+                    .build();
+
+            // Verify the token
+            DecodedJWT jwt = verifier.verify(token);
+
+            // Token is valid
+            return true;
+        } catch (JWTVerificationException exception){
+            // Token is invalid
+            log.error("Token valdiation error: {}", exception.getMessage());
+            return false;
+        }*/
     }
 }

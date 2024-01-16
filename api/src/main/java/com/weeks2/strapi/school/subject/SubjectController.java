@@ -47,6 +47,13 @@ public class SubjectController {
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> patch(@RequestHeader HttpHeaders headers, @PathVariable("id") int id, @RequestBody Subject.Attributes body){
+        subjectService.patch(headers, id, body);
+        return ResponseEntity.ok("SUCCESS"+body);
+    }
+
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @PostMapping
     public ResponseEntity<String> create(@RequestHeader HttpHeaders headers, @RequestBody Subject.Attributes body) {
         log.info("{}",body);
