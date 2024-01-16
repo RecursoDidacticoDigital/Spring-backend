@@ -56,7 +56,7 @@ class RegisterView extends StatelessWidget {
                         onChanged: (value) => registerFormProvider.account = value,
                         validator: (value){
                           if(value == null || value.isEmpty) return 'Ingrese su número de cuenta';
-                          if(value.length < 10) return 'Su número de cuenta debe tener 10 caracteres';
+                          if(value.length < 6) return 'Su número de cuenta debe tener 6 caracteres (profesor) o 10 (alumno)';
                           try{
                             int.parse(value);
                             return null;

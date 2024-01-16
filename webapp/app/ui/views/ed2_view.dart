@@ -52,7 +52,8 @@ class Ed2View extends StatelessWidget {
                   left: 5.0,
                   top: 5.0,
                   child: ClassroomItem(
-                    label: 'Classroom 1001',
+                    classroom: "2001",
+                    label: 'Classroom 2001',
                     onPressed: () => navigateTo(Flurorouter.classroomScheduleRoute),
                   ),
                 )

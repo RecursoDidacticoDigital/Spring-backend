@@ -1,8 +1,10 @@
+// ignore_for_file: avoid_print
+
 import '../../datatables/subjects_datasource.dart';
 import '../../models/http/subjects_response.dart';
 import '../../api/authApi.dart';
-import '../../api/classroomsApi.dart';
 import '../../api/subjectsApi.dart';
+import '../../providers/classroom_name_provider.dart';
 import '../../providers/classroom_provider.dart';
 import '../../services/navigation_service.dart';
 import '../buttons/custom_icon_button.dart';
@@ -21,79 +23,84 @@ class ClassroomScheduleView extends StatefulWidget {
 
 class _ClassroomScheduleViewState extends State<ClassroomScheduleView> {
 
+  List<Subject> materias = [];
+  ClassroomNameProvider? classroomNameProvider;
+  late Future<void> _subjectsFuture;
+
   void navigateTo(String routeName){
     NavigationService.navigateTo(routeName);
   }
 
-  //int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
-
   @override
   void initState() {
     super.initState();
-    
-    //Cuando se encuentra dentro de la funcion build(), listen suele estar en true,
-    //pero en la función init no necesita estar en true.
-    final classroomProvider = Provider.of<ClassroomProvider>(context, listen: false);
-    Provider.of<SubjectsApi>(context, listen: false).getSubjects();
-    Provider.of<ClassroomsApi>(context, listen: false).getClassroomByName(classroomProvider.getClassroom());
+    classroomNameProvider = Provider.of<ClassroomNameProvider>(context, listen: false);
+    _subjectsFuture = Provider.of<SubjectsApi>(context, listen: false).getSubjects();
   }
 
   @override
   Widget build(BuildContext context) {
-    final classroomProvider = Provider.of<ClassroomProvider>(context, listen: false);
-    final authRole = Provider.of<AuthApi>(context).role!;
-    final user = Provider.of<AuthApi>(context).user!;
-    final List<Subject> materias = Provider.of<SubjectsApi>(context).materias;
-    // Here I used the materia variable to access one of the subjects on the list.
-    //final List<Classroom> salones = Provider.of<ClassroomsApi>(context).salones;
-    //final salon = salones.first;
-    //print(salon.name);
-    //print(user.username.runtimeType);
-    // ignore: avoid_unnecessary_containers
-    return Container(
-      child: ListView(
-        physics: const ClampingScrollPhysics(),
-        children: [
-          // classroomProvider.getClassroom() can be changed for salon.name later.
-          Text('Salón ${classroomProvider.getClassroom()}', style: CustomLabels.h1),
-          
-          WhiteCard(
-            title: authRole,
-            child: Text("Hola ${user.username}")
-          ),
-
-          const SizedBox(height: 10),
-
-            Container(
-              constraints: const BoxConstraints(
-                maxWidth: 200
+    return FutureBuilder(
+      future: _subjectsFuture,
+      builder: (context, snapshot){
+        if(snapshot.connectionState == ConnectionState.waiting){
+          return const CircularProgressIndicator();
+        } else if(snapshot.hasError){
+          return Text('Error: ${snapshot.error}');
+        } else {
+          final subjectsApi = Provider.of<SubjectsApi>(context);
+          materias = subjectsApi.materias;
+          final authRole = Provider.of<AuthApi>(context).role!;
+          bool isUser = false;
+          final user = Provider.of<AuthApi>(context).user!;
+          if(authRole == 'STUDENT') isUser = true;
+          return ListView(
+            physics: const ClampingScrollPhysics(),
+            children: [
+              // classroomNameProvider.getClassroom() can be changed for salon.name later.
+              Text('Salón ${classroomNameProvider!.getClassroom()}', style: CustomLabels.h1),
+              
+              WhiteCard(
+                title: authRole,
+                child: Text("Hola ${user.username}")
               ),
-              child: CustomIconButton(
-                onPressed: () => navigateTo(Flurorouter.classroomReserveFormRoute), 
-                text: "Solicitar una reserva", 
-                icon: Icons.edit_calendar_outlined,
+
+              const SizedBox(height: 10),
+
+              (isUser)
+              ?const SizedBox(height: 20)
+              :Container(
+                  constraints: const BoxConstraints(
+                    maxWidth: 200
+                  ),
+                  child: CustomIconButton(
+                    onPressed: () => navigateTo(Flurorouter.classroomReserveFormRoute), 
+                    text: "Solicitar una reserva", 
+                    icon: Icons.edit_calendar_outlined,
+                  ),
+                ),
+
+              const SizedBox(height: 20),
+
+              PaginatedDataTable(
+                columns: const [
+                  DataColumn(label: Text("Grupo", textAlign: TextAlign.center)),
+                  DataColumn(label: Text("Unidad de aprendizaje", textAlign: TextAlign.center)),
+                  DataColumn(label: Text("Salón", textAlign: TextAlign.center)),
+                  DataColumn(label: Text("Laboratorio", textAlign: TextAlign.center)),
+                  DataColumn(label: Text("Lunes", textAlign: TextAlign.center)),
+                  DataColumn(label: Text("Martes", textAlign: TextAlign.center)),
+                  DataColumn(label: Text("Miercoles", textAlign: TextAlign.center)),
+                  DataColumn(label: Text("Jueves", textAlign: TextAlign.center)),
+                  DataColumn(label: Text("Viernes", textAlign: TextAlign.center)),
+                ], 
+                source: SubjectsDTS( materias: materias, context),
+                header: Text("Hoja de horarios del salón ${classroomNameProvider!.getClassroom()}"),
               ),
-            ),
-
-          const SizedBox(height: 20),
-
-          PaginatedDataTable(
-            columns: const [
-              DataColumn(label: Text("Grupo")),
-              DataColumn(label: Text("Unidad de aprendizaje")),
-              DataColumn(label: Text("Salón")),
-              DataColumn(label: Text("Laboratorio")),
-              DataColumn(label: Text("Lunes")),
-              DataColumn(label: Text("Martes")),
-              DataColumn(label: Text("Miercoles")),
-              DataColumn(label: Text("Jueves")),
-              DataColumn(label: Text("Viernes")),
-            ], 
-            source: SubjectsDTS( materias: materias),
-            header: Text("Hoja de horarios del salón ${classroomProvider.getClassroom()}"),
-          ),
-        ],
-      ),
+            ],
+          );
+        }
+      }
     );
   }
 }

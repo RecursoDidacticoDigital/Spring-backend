@@ -11,10 +11,10 @@ class RequestFormProvider extends ChangeNotifier {
   String memberAccount = '';
   String department = '';
   String subject = '';
-  int classroomId = -1;
+  int classroomId = 0;
   String classroom = '';
-  int dayId = -1;
-  int timeblockId = -1;
+  int dayId = 0;
+  int timeblockId = 0;
 
 
   validateForm() {

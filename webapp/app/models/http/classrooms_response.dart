@@ -6,6 +6,7 @@ class Classroom {
     String name;
     int subjects;
     int building;
+    int queue;
 
     Classroom({
         required this.id,
@@ -13,6 +14,7 @@ class Classroom {
         required this.name,
         required this.subjects,
         required this.building,
+        required this.queue
     });
 
     factory Classroom.fromJson(String str) => Classroom.fromMap(json.decode(str));
@@ -25,6 +27,7 @@ class Classroom {
         name: json["name"],
         subjects: json["subjects"],
         building: json["building"],
+        queue: json["queue"]
     );
 
     Map<String, dynamic> toMap() => {
@@ -33,6 +36,7 @@ class Classroom {
         "name": name,
         "subjects": subjects,
         "building": building,
+        "queue": queue
     };
 }
 

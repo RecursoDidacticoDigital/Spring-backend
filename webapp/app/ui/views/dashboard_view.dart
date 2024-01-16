@@ -40,8 +40,8 @@ class DashboardView extends StatelessWidget {
           
           InteractiveViewer(
             boundaryMargin: EdgeInsets.all(20.0),
-            minScale: 0.05,
-            maxScale: 0.1,
+            minScale: 0.1,
+            maxScale: 1,
             child: Stack(
               alignment: Alignment.center,
               children: <Widget>[

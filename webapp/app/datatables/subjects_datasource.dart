@@ -6,36 +6,29 @@ import 'package:flutter/material.dart';
 class SubjectsDTS extends DataTableSource{
   
   final List<Subject> materias;
+  final BuildContext context;
 
-  SubjectsDTS({required this.materias});
+  SubjectsDTS(this.context, {required this.materias});
 
   @override
   DataRow getRow(int index) {
-    final materia = materias[index];
-    materia.group ??= "----";
-    materia.laboratory ??= "NA";
-    String startTime1 = getTimeblockStart(materia.timeblockId1);
-    String endTime1 = getTimeblockEnd(materia.timeblockId1);
-    String startTime2 = getTimeblockStart(materia.timeblockId2);
-    String endTime2 = getTimeblockEnd(materia.timeblockId2);
-    String startTime3 = getTimeblockStart(materia.timeblockId3);
-    String endTime3 = getTimeblockEnd(materia.timeblockId3);
-    String startTime4 = getTimeblockStart(materia.timeblockId4);
-    String endTime4 = getTimeblockEnd(materia.timeblockId4);
-    String startTime5 = getTimeblockStart(materia.timeblockId5);
-    String endTime5 = getTimeblockEnd(materia.timeblockId5);
+    //final classroomProvider = Provider.of<ClassroomProvider>(context, listen: false);
+    final Subject materia = materias[index];
+    String grupo = materia.group ??= "----";
+    String lab = materia.laboratory ??= "NA";
+    
     return DataRow.byIndex(
       index: index,
       cells: [
-        DataCell( Text(materia.group!) ),
+        DataCell( Text(grupo) ),
         DataCell( Text(materia.name) ),
         DataCell( Text(materia.classroom) ),
-        DataCell( Text(materia.laboratory!) ),
-        DataCell( Text("$startTime1-$endTime1") ),
-        DataCell( Text("$startTime2-$endTime2") ),
-        DataCell( Text("$startTime3-$endTime3") ),
-        DataCell( Text("$startTime4-$endTime4") ),
-        DataCell( Text("$startTime5-$endTime5") ),
+        DataCell( Text(lab) ),
+        DataCell( Text("${getTimeblockStart(materia.timeblockid1)}-${getTimeblockEnd(materia.timeblockid1)}") ),
+        DataCell( Text("${getTimeblockStart(materia.timeblockid2)}-${getTimeblockEnd(materia.timeblockid2)}") ),
+        DataCell( Text("${getTimeblockStart(materia.timeblockid3)}-${getTimeblockEnd(materia.timeblockid3)}") ),
+        DataCell( Text("${getTimeblockStart(materia.timeblockid4)}-${getTimeblockEnd(materia.timeblockid4)}") ),
+        DataCell( Text("${getTimeblockStart(materia.timeblockid5)}-${getTimeblockEnd(materia.timeblockid5)}") ),
       ]
     );
   }
@@ -52,8 +45,8 @@ class SubjectsDTS extends DataTableSource{
 
   int get selectedRowCount => 0;
 
-  String getTimeblockStart(int timeblockId){
-    switch(timeblockId){
+  String getTimeblockStart(int timeblockid){
+    switch(timeblockid){
       case 1: return "07:00:00";
       case 2: return "08:30:00";
       case 3: return "10:30:00";
@@ -66,8 +59,8 @@ class SubjectsDTS extends DataTableSource{
       default: return "        ";
     }
   }
-  String getTimeblockEnd(int timeblockId){
-    switch(timeblockId){
+  String getTimeblockEnd(int timeblockid){
+    switch(timeblockid){
       case 1: return "08:30:00";
       case 2: return "10:00:00";
       case 3: return "12:00:00";

@@ -1,5 +1,5 @@
+import '../../api/requestsApi.dart';
 import '../../providers/request_form_provider.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import '../../router/router.dart';
@@ -162,9 +162,23 @@ class _ReservationViewState extends State<ReservationView> {
                       const SizedBox(height: 20),
 
                       CustomOutlinedButton(
-                        // TODO: Añadir funcionalidad al formulario.
                         onPressed: (){
-                          print(onFormSubmit(requestFormProvider));
+
+                          final validForm = requestFormProvider.validateForm();
+                          if(!validForm) return;
+                          
+                          final requestProvider = Provider.of<RequestsApi>(context, listen: false);
+                          requestProvider.postRequests(
+                            requestFormProvider.memberName,
+                            requestFormProvider.memberAccount,
+                            requestFormProvider.department,
+                            requestFormProvider.classroom,
+                            requestFormProvider.dayId,
+                            requestFormProvider.timeblockId,
+                            requestFormProvider.subject,
+                            0
+                          );
+
                           navigateTo(Flurorouter.classroomReserveFormRoute);
                         }, 
                         text: 'Enviar solicitud',

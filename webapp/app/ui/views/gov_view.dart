@@ -53,6 +53,7 @@ class GovView extends StatelessWidget {
                   left: 500,
                   top: 250,
                   child: ClassroomItem(
+                    classroom: "",
                     label: 'Classroom 1001',
                     onPressed: () => navigateTo(Flurorouter.classroomScheduleRoute),
                   ),

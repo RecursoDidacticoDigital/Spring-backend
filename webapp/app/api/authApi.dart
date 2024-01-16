@@ -1,3 +1,7 @@
+// ignore_for_file: avoid_print
+
+import 'dart:convert';
+
 import 'ApiClient.dart';
 import '../models/http/auth_response.dart';
 import '../router/router.dart';
@@ -18,6 +22,7 @@ class AuthApi
   AuthStatus authStatus = AuthStatus.checking;
   User? user;
   String? role;
+  bool isLoading = true;
 
   AuthApi
   () {
@@ -40,8 +45,9 @@ class AuthApi
       role = authResponse.role;
       authStatus = AuthStatus.authenticated;
 
+      NotificationsService.showSnackbarNotification("Datos correctos, iniciando sesión...");
       // Save JWT token
-      await LocalStorages.saveJwt(authResponse.jwt); // Assuming saveJwt is an async function
+      await LocalStorages.saveJwt(authResponse.jwt);
 
       NavigationService.replaceTo(Flurorouter.dashboardRoute);
       ApiClient.configureDio();
@@ -61,25 +67,28 @@ class AuthApi
       'account': account
     };
 
-    ApiClient.post('/members', data).then(
-      (json){
-        final authResponse = AuthResponses.fromMap(json);
-        user = authResponse.user;
+    try {
+      var json = await ApiClient.post('/members', data);
+      final authResponse = AuthResponses.fromMap(json);
+      
+      user = authResponse.user;
+      role = authResponse.role;
+      authStatus = AuthStatus.authenticated;
 
-        authStatus = AuthStatus.authenticated;
-        
-        LocalStorages.prefs.setString('jwt', authResponse.jwt);
-        
-        NavigationService.replaceTo(Flurorouter.dashboardRoute);
+      // Save JWT token
+      await LocalStorages.saveJwt(authResponse.jwt); // Assuming saveJwt is an async function
+      await LocalStorages.saveUser(jsonEncode(user!.toMap()));
+      await LocalStorages.saveRole(role!);
 
-        ApiClient.configureDio();
-        notifyListeners();
+      NotificationsService.showSnackbarNotification("Usuario registrado");
 
-      }
-    ).catchError((e){
-      print('error en: $e');
-      NotificationsService.showSnackbarError('User / Contraseña / Correo no válidos');
-    });
+      NavigationService.replaceTo(Flurorouter.dashboardRoute);
+      ApiClient.configureDio();
+      notifyListeners();
+    } catch (e) {
+      print('ERROR EN POST /members: $e');
+      NotificationsService.showSnackbarError('Usuario / Contraseña / Correo no válidos');
+    }
   }
 
   Future<bool> isAuthenticated() async {
@@ -93,26 +102,67 @@ class AuthApi
     }
 
     try {
-      final resp = await ApiClient.httpGet('/');
-      final authResponse = AuthResponses.fromMap(resp);
-      LocalStorages.prefs.setString('jwt', authResponse.jwt);
-      await LocalStorages.saveJwt(authResponse.jwt);
+      print("TRYING TO AUTHENTICATE");
+      Map<String, String> headers = await LocalStorages.getAuthHeaders();
 
-      user = authResponse.user;
-      authStatus = AuthStatus.authenticated;
-      notifyListeners();
-      return true;
+      final response = await ApiClient.httpGet('/auth/local/headers');
+      print("RESPONSE TYPE: ${response.runtimeType}");
+      print("RESPONSE: $response");
 
+      if(response.statusCode == 202){
+        print("Request accepted, but no content returned");
+        authStatus = AuthStatus.authenticated;
+        // Save JWT, user data, and role
+
+        final String? userJson = LocalStorages.readUser();
+        if(userJson != null){
+          user = User.fromMap(jsonDecode(userJson));
+          role = LocalStorages.readRole();
+          notifyListeners();
+          return true;
+        }
+        authStatus = AuthStatus.notAuthenticated;
+        notifyListeners();
+        return false;
+        
+      } else if (response.data == null){
+        print("ERROR: EMPTY RESPONSE FROM SERVER");
+        authStatus = AuthStatus.notAuthenticated;
+        notifyListeners();
+        return false;
+      }
+
+      print("RESPONSE STRING: $response");
+
+      try {
+        final Map<String, dynamic> resp = jsonDecode(response.data);
+        final authResponse = AuthResponses.fromMap(resp);
+
+        LocalStorages.prefs.setString('jwt', authResponse.jwt);
+        await LocalStorages.saveJwt(authResponse.jwt);
+
+        user = authResponse.user;
+        authStatus = AuthStatus.authenticated;
+        notifyListeners();
+        return true;
+      } catch (e) {
+        print("JSON Parsing Error: $e");
+        authStatus = AuthStatus.notAuthenticated;
+        notifyListeners();
+        return false;
+      }
     } catch (e) {
-      print(e);
+      print("ERROR, AUTHENTICATION FAILED: $e");
       authStatus = AuthStatus.notAuthenticated;
       notifyListeners();
       return false;
     }
   }
 
-  logout(){
-    LocalStorages.prefs.remove('jwt');
+  logout() {
+    LocalStorages.clearJwt();
+    LocalStorages.clearUser();
+    LocalStorages.clearRole();
     authStatus = AuthStatus.notAuthenticated;
     notifyListeners();
   }

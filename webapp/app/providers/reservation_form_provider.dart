@@ -10,8 +10,8 @@ class ReservationFormProvider extends ChangeNotifier {
   String name    = '';
   String classroom = '';
   String teacher = '';
-  int dayId = -1;
-  int timeblockId = -1;
+  int dayId = 0;
+  int timeblockId = 0;
 
 
   validateForm() {

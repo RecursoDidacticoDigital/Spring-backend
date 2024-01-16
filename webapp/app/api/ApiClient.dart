@@ -1,8 +1,10 @@
 // ignore_for_file: avoid_print
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'dart:convert';
-
+import '../models/http/http_response.dart';
 import '../services/local_storage.dart';
 
 class ApiClient {
@@ -19,19 +21,22 @@ class ApiClient {
       'Content-Type': 'Application/json',
       //'jwt': LocalStorages.prefs.getString('jwt') ?? ''
     };
-    print("Headers: ${_dio.options.headers}");
   }
 
-  static Future httpGet(String path) async{
-    var headers = await _getHeaders();
-    print("HEADERS: $headers");
+  static Future<HttpResponses> httpGet(String path) async{
+    print("PATH RECIBIDO EN EL HEADER: $path");
     try{
+      Map<String, String> headers = await LocalStorages.getAuthHeaders();
+      //print("HEADERS OBTAINED: $headers");
+
       final resp = await _dio.get(path, options: Options(headers: headers));
-      return resp.data;
+      print("RESPONSE: $resp");
+      
+      return HttpResponses(data: resp.data, statusCode: resp.statusCode);
 
     } catch(e){
       print(e);
-      throw('Error en el GET');
+      throw('Error en el GET: $e');
     }
   }
 
@@ -41,17 +46,18 @@ class ApiClient {
     //final formData = FormData.fromMap(data);
 
     try{
-      final resp = await _dio.post(path, data: formData);
+      Map<String, String> headers = await LocalStorages.getAuthHeaders();
+      final resp = await _dio.post(path, options: Options(headers: headers), data: formData);
       return resp.data;
 
     } catch(e){
       print(e);
-      throw('Error en el POST');
+      throw('Error en el POST: $e');
     }
   }
 
   static Future put(String path, Map<String, dynamic> data) async{
-    var headers = await _getHeaders();
+    Map<String, String> headers = await LocalStorages.getAuthHeaders();
     var formData = json.encode(data);
 
     try{
@@ -60,7 +66,33 @@ class ApiClient {
 
     } catch(e){
       print(e);
-      throw('Error en el PUT');
+      throw('Error en el PUT: $e');
+    }
+  }
+
+  static Future patch(String path, Map<String, dynamic> data) async{
+    Map<String, String> headers = await LocalStorages.getAuthHeaders();
+    var formData = json.encode(data);
+
+    try{
+      final resp = await _dio.patch(path, data: formData, options: Options(headers: headers));
+      return resp.data;
+
+    } catch(e){
+      print(e);
+      throw('Error en el PUT: $e');
+    }
+  }
+
+  static Future delete(String path) async{
+    Map<String, String> headers = await LocalStorages.getAuthHeaders();
+    try{
+      final resp = await _dio.delete(path, options: Options(headers: headers));
+      print(resp.data);
+      return resp.data;
+    } catch(e){
+      print(e);
+      throw('Error en el DELETE: $e');
     }
   }
 

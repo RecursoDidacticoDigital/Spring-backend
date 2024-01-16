@@ -2,25 +2,27 @@ import 'dart:convert';
 
 class Request {
     int id;
-  String memberName;
-  String memberAccount;
-  String department;
-  int classroomId;
-  String day;
-  int timeblock;
-  String subject;
-  bool? approved;
+    String memberName;
+    String memberAccount;
+    String department;
+    int? classroomId;
+    String classroom;
+    int day;
+    int timeblock;
+    String subject;
+    int approved;
 
     Request({
         required this.id,
         required this.memberName,
         required this.memberAccount,
         required this.department,
-        required this.classroomId,
+        this.classroomId,
+        required this.classroom,
         required this.day,
         required this.timeblock,
         required this.subject,
-        this.approved,
+        required this.approved,
     });
 
     factory Request.fromJson(String str) => Request.fromMap(json.decode(str));
@@ -29,24 +31,28 @@ class Request {
 
     factory Request.fromMap(Map<String, dynamic> json) => Request(
         id: json["id"],
-        memberName: json["member_name"],
-        memberAccount: json["member_account"],
+        memberName: json["username"],
+        memberAccount: json["useraccount"],
         department: json["department"],
-        classroomId: json["classroom_id"],
-        day: json["day_id"],
-        timeblock: json["timeblock_id"],
+        classroomId: json["classroomid"],
+        classroom: json["classroom"],
+        day: json["dayid"],
+        timeblock: json["timeblockid"],
         subject: json["subject"],
+        approved: json["approved"]
     );
 
     Map<String, dynamic> toMap() => {
         "id": id,
-        "member_name": memberName,
-        "member_account": memberAccount,
+        "username": memberName,
+        "useraccount": memberAccount,
         "department": department,
-        "classroom_id": classroomId,
-        "day_id": day,
-        "timeblock_id": timeblock,
+        "classroomid": classroomId,
+        "classroom": classroom,
+        "dayid": day,
+        "timeblockid": timeblock,
         "subject": subject,
+        "approved": approved,
     };
 }
 
