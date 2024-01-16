@@ -66,6 +66,35 @@ class SubjectsApi extends ChangeNotifier {
     }
   }
 
+  Future<void> updateSubject(String name,{String? classroom, String? teacher, int? dayid, int? timeblockid}) async {
+    final Map<String, dynamic> data = {};
+    if(name != null) data['name'] = name;
+    if(classroom != null) data['classroom'] = classroom;
+    if(teacher != null) data['teacher'] = teacher;
+
+    if(dayid != null && timeblockid != null){
+      switch(dayid){
+        case 1: data['timeblockid1'] = timeblockid; break;
+        case 2: data['timeblockid2'] = timeblockid; break;
+        case 3: data['timeblockid3'] = timeblockid; break;
+        case 4: data['timeblockid4'] = timeblockid; break;
+        case 5: data['timeblockid5'] = timeblockid; break;
+        default: break;
+      }
+    }
+
+    try{
+      var json = await ApiClient.patch('/subjects/$name', data);
+      final response = Subject.fromMap(json);
+
+      print("${response.name} ACTUALIZADA CON ÉXITO");
+      notifyListeners();
+    } catch(e) {
+      print("Error al intentar actualizar la materia");
+      print("ERROR EN PATCH /subjects/subject: $e");
+    }
+  }
+
   getSubjects() async{
     final HttpResponses resp = await ApiClient.httpGet('/subjects');
     if(resp.statusCode == 200){
