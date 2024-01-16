@@ -34,6 +34,15 @@ public class ClassroomController {
     }
 
     @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
+    @GetMapping("/availableByName/{name}")
+    public boolean getAvailable(@RequestHeader HttpHeaders headers, @PathVariable("name") String name) {
+        log.info("NAME: {}", name);
+        boolean result = classroomService.getAvailable(headers,name);
+        log.info("RESULT: {}", result);
+        return result;
+    }
+
+    @CrossOrigin(origins = AppEndPointsSchool.FLUTTER_APP_PATH)
     @DeleteMapping("/{id}")
     public ResponseEntity<String> delete(@RequestHeader HttpHeaders headers, @PathVariable("id") int id) {
         classroomService.delete(headers,id);

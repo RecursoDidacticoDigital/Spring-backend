@@ -60,6 +60,12 @@ public class SubjectService {
         log.info("{}",response);
     }
 
+    public void putByName(HttpHeaders headers, String name, Subject.Attributes body){
+        var payload = getSubjectPayload(body);
+        var response = rest.httpPutRequest(url+"/"+name, headers, payload, SubjectData.class).getData();
+        log.info("{}",response);
+    }
+
     public void patch(HttpHeaders headers, int id, Subject.Attributes body){
         var payload = getSubjectPayload(body);
         var response = rest.httpPatchRequest(url+"/"+id, headers, payload, SubjectData.class).getData();
